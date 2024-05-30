@@ -1,0 +1,32 @@
+{
+    "minRange":"1000",
+	"maxRange":"2000",
+    "dmaToolTip": {
+        "totalFlowlabel": "Total Flow",
+        "totalOutFlowLabel": "Total OutFlow",
+        "totalFlowColor": "Blue",
+        "totalOutFlowColor": "DarkBlue"
+    },
+    "totalDmaOutFlow": [
+        {
+            "name": "DMA-1",
+            "totalFlow": "200",
+            "totalOutFlow": "600"
+        },
+        {
+            "name": "DMA-2",
+            "totalFlow": "200",
+            "totalOutFlow": "600"
+        },
+        {
+            "name": "DMA-3",
+            "totalFlow": "200",
+            "totalOutFlow": "600"
+        },
+        {
+            "name": "DMA-4",
+            "totalFlow": "200",
+            "totalOutFlow": "600"
+        }
+    ]
+}

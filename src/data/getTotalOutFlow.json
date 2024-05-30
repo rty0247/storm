@@ -1,0 +1,42 @@
+{
+	"minRange": "1000",
+	"maxRange": "2000",
+	"totalOutFlow": [
+	  {
+		"date": "2024-05-17",
+		"day": "Monday",
+		"count": "1050"
+	  },
+	  {
+		"date": "2024-05-18",
+		"day": "Tuesday",
+		"count": "1150"
+	  },
+	  {
+		"date": "2024-05-19",
+		"day": "Wednesday",
+		"count": "1120"
+	  },
+	  {
+		"date": "2024-05-20",
+		"day": "Thursday",
+		"count": "1010"
+	  },
+	  {
+		"date": "2024-05-21",
+		"day": "Friday",
+		"count": "1190"
+	  },
+	  {
+		"date": "2024-05-22",
+		"day": "Saturday",
+		"count": "1075"
+	  },
+	  {
+		"date": "2024-05-23",
+		"day": "Sunday",
+		"count": "1105"
+	  }
+	]
+  }
+  

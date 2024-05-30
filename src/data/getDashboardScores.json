@@ -1,0 +1,25 @@
+{
+	"totalZone":{
+		"activeZone":"88%",
+		"InactiveZone":"12%",
+		"totalZoneCount":"340"
+		},
+	"totalDma":{
+		"activeCount":"468",
+		"InactiveZone":"240",
+		"faultyZone":"162",
+		"totalZoneCount":"870"
+		},
+	"totalMeters":{
+		"activeCount":"4500",
+		"InactiveZone":"589",
+		"faultyZone":"581",
+		"totalZoneCount":"5670"
+		},
+	"totalGateway":{
+		"activeZone":"100%",
+		"InactiveZone":"0%",
+		"totalZoneCount":"1567"
+	
+	}
+}

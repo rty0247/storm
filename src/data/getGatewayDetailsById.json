@@ -1,0 +1,44 @@
+{
+    "basicDetails": {
+        "id": "B1A9",
+        "type": "B1A9",
+        "subnet": "CH_00-07",
+        "ceacon": {
+            "name": "Disabled",
+            "color": "#ffff",
+            "backgroundColor": "#fffff"
+        },
+        "transmittingPower": {
+            "name": "Custom",
+            "color": "yellow",
+            "backgroundColor": "yellow"
+        },
+        "createdTime": "2024-5-30 11:42:34",
+        "name": "GW12_BEE",
+        "region": "IN865",
+        "beacon": {
+            "name": "Disabled",
+            "color": "#ffff",
+            "backgroundColor": "#fffff"
+        },
+        "gdtp": "21",
+        "http": "http://49.207.11.223:17070",
+        "remarks": "GW12_BEE"
+    },
+    "lastFrameData": {
+        "devAddress": "01-69-FE-F6",
+        "frequency(MHz)": "865.663",
+        "sNR(dB)": "-11.2",
+        "BW(Khz)": "125",
+        "gpsTime": "1333300028.403s",
+        "type": "Unconfirmed Data up",
+        "rssi(dBm)": "79",
+        "sf": "12",
+        "loraMod": {
+            "name": "LoRa",
+            "color": "#ffff",
+            "backgroundColor": "#fffff"
+        },
+        "remarks": "2024-05-30 11:51:22"
+    }
+}

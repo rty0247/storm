@@ -1,0 +1,37 @@
+{
+		
+		"alerts":[{
+			"alertName":"Gateway Failure",
+			"alertDescription":"3739018!038",
+			"alertTime":"12:57 PM"
+			},
+			{
+			"alertName":"Meter Theft",
+			"alertDescription":"3739018!038",
+			"alertTime":"14:57 PM"
+			},{
+			"alertName":"Line Leakage",
+			"alertDescription":"3739018!038",
+			"alertTime":"15:57 PM"
+			}],
+		"alertsCount":{
+			"highAlert":{
+				"label":"High",
+				"count":"100",
+				"color":"#ffff",
+				"backgroundColor":"#ddd"
+				},
+			"mediumAlert":{
+				"label":"Medium",
+				"count":"40",
+				"color":"#ffff",
+				"backgroundColor":"#ddd"
+				},
+			"lowAlert":{
+			"label":"Low",
+				"count":"20",
+				"color":"#ffff",
+				"backgroundColor":"#ddd"
+			}
+		}
+	}
