@@ -1,0 +1,55 @@
+{
+    "minRange": "0",
+    "maxRange": "2000",
+    "difference":"200",
+    "outFlowToolTip": {
+        "totalFlowlabel": "Total Flow",
+        "totalOutFlowLabel": "Total OutFlow",
+        "totalFlowColor": "Blue",
+        "totalOutFlowColor": "DarkBlue"
+    },
+    "totalOutFlow": [
+        {
+            "date": "2024-05-17",
+            "day": "Monday",
+            "totalFlow": "200",
+            "totalOutFlow": "600"
+        },
+        {
+            "date": "2024-05-18",
+            "day": "Tuesday",
+            "totalFlow": "200",
+            "totalOutFlow": "600"
+        },
+        {
+            "date": "2024-05-19",
+            "day": "Wednesday",
+            "totalFlow": "200",
+            "totalOutFlow": "600"
+        },
+        {
+            "date": "2024-05-20",
+            "day": "Thursday",
+            "totalFlow": "200",
+            "totalOutFlow": "600"
+        },
+        {
+            "date": "2024-05-21",
+            "day": "Friday",
+            "totalFlow": "200",
+            "totalOutFlow": "600"
+        },
+        {
+            "date": "2024-05-22",
+            "day": "Saturday",
+            "totalFlow": "200",
+            "totalOutFlow": "600"
+        },
+        {
+            "date": "2024-05-23",
+            "day": "Sunday",
+            "totalFlow": "200",
+            "totalOutFlow": "600"
+        }
+    ]
+}

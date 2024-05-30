@@ -2,7 +2,7 @@
 
 const express = require('express');
 const bodyParser = require('body-parser');
-const sequelize = require('./src/config/db'); // Make sure to require the sequelize instance
+//const sequelize = require('./src/config/db'); // Make sure to require the sequelize instance
 require('./src/models/lnsPostdata03'); // Load the models
 require('./src/models/lwkeys02'); // Load the models
 require('./src/models/associations'); // Load associations
@@ -23,10 +23,10 @@ app.use('/keys', lwKeys02Routes);
 
 (async () => {
   try {
-    await sequelize.authenticate(); // Ensure database connection is established
+    //await sequelize.authenticate(); // Ensure database connection is established
     console.log('Database connection established successfully.');
 
-    await sequelize.sync(); // Sync models
+    //await sequelize.sync(); // Sync models
     console.log('Database synchronized successfully.');
 
     app.listen(port, () => {

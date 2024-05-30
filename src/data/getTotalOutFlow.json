@@ -1,6 +1,7 @@
 {
-	"minRange": "1000",
+	"minRange": "0",
 	"maxRange": "2000",
+	"difference":"200",
 	"totalOutFlow": [
 	  {
 		"date": "2024-05-17",

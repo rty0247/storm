@@ -1,0 +1,40 @@
+{
+    "clients": [
+        {
+            "clientId": 1,
+            "clientName": "KSCCL-WATER",
+            "type": "OTAA",
+            "region": {
+                "name": "IN865",
+                "color": "#ffff",
+                "backgroundColor": "#fffff"
+            },
+            "createdTime": "2024-05-30 16:27:55",
+            "meters": "4500",
+            "status": {
+                "name": "Active",
+                "color": "#ffff",
+                "backgroundColor": "#fffff"
+            },
+            "snumber": "122221"
+        },
+        {
+            "clientId": 2,
+            "clientName": "TEST_ABP",
+            "type": "ABP",
+            "region": {
+                "name": "IN865",
+                "color": "#ffff",
+                "backgroundColor": "#fffff"
+            },
+            "createdTime": "2024-05-30 16:27:55",
+            "meters": "2",
+            "status": {
+                "name": "Active",
+                "color": "#ffff",
+                "backgroundColor": "#fffff"
+            },
+            "snumber": "122221"
+        }
+    ]
+}

@@ -72,4 +72,26 @@ router.post('/getDmaOutFlow', (req, res) => {
         res.json(JSON.parse(data));
     });
 });
+
+router.post('/getOutFlowTrend', (req, res) => {
+    const filePath = path.join(__dirname, '../data/getOutFlowTrend.json');
+    console.log(filePath)
+    fs.readFile(filePath, 'utf8', (err, data) => {
+        if (err) {
+            return res.status(500).json({ error: 'Failed to read data file' });
+        }
+        res.json(JSON.parse(data));
+    });
+});
+
+router.post('/getAllClients', (req, res) => {
+    const filePath = path.join(__dirname, '../data/getAllClients.json');
+    console.log(filePath)
+    fs.readFile(filePath, 'utf8', (err, data) => {
+        if (err) {
+            return res.status(500).json({ error: 'Failed to read data file' });
+        }
+        res.json(JSON.parse(data));
+    });
+});
 module.exports = router;

@@ -17,21 +17,15 @@
 		"alertsCount":{
 			"highAlert":{
 				"label":"High",
-				"count":"100",
-				"color":"#ffff",
-				"backgroundColor":"#ddd"
+				"count":"100"
 				},
 			"mediumAlert":{
 				"label":"Medium",
-				"count":"40",
-				"color":"#ffff",
-				"backgroundColor":"#ddd"
+				"count":"40"
 				},
 			"lowAlert":{
 			"label":"Low",
-				"count":"20",
-				"color":"#ffff",
-				"backgroundColor":"#ddd"
+			"count":"20"
 			}
 		}
 	}

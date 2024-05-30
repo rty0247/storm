@@ -1,6 +1,7 @@
 {
     "minRange":"1000",
 	"maxRange":"2000",
+    "difference":"200",
     "dmaToolTip": {
         "totalFlowlabel": "Total Flow",
         "totalOutFlowLabel": "Total OutFlow",
