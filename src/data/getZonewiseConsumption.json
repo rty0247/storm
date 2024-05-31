@@ -1,0 +1,34 @@
+
+{
+	"totalConsumption":"6567Kl",
+	"zoneDetails":[{
+		"zoneId":"#Zone1",
+		"gatewayId":"B1A9",
+		"reading":"17.878",
+		"date":"2024-05-31",
+		"dma":"5",
+		"meters":"5",
+		"consumed":"5%",
+		"status":"Active"
+		},
+		{
+		"zoneId":"#Zone2",
+		"gatewayId":"B1A9",
+		"reading":"17.878",
+		"date":"2024-05-31",
+		"dma":"5",
+		"meters":"5",
+		"consumed":"5%",
+		"status":"Active"
+		},
+		{
+		"zoneId":"#Zone3",
+		"gatewayId":"B1A9",
+		"reading":"17.878",
+		"date":"2024-05-31",
+		"dma":"5",
+		"meters":"5",
+		"consumed":"5%",
+		"status":"Active"
+		}]
+}

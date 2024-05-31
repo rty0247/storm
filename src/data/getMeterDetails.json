@@ -1,0 +1,42 @@
+{
+	"meters":[
+	{
+		"meterId":"1194802",
+		"gatewayId":"B1A9",
+		"deveui":"9873D",
+		"zoneNo":"zone1",
+		"dmaNo":"1472",
+		"timestamp":"2024-05-30 18:52:33",
+		"reading":"22.3",
+		"consumed":"678",
+		"status":"Active",
+		"batteryLife":"OxFE",
+		"remarks":""
+	},
+	{
+		"meterId":"1194802",
+		"gatewayId":"B1A9",
+		"deveui":"9873D",
+		"zoneNo":"zone1",
+		"dmaNo":"1472",
+		"timestamp":"2024-05-30 18:52:33",
+		"reading":"22.3",
+		"consumed":"678",
+		"status":"Active",
+		"batteryLife":"OxFE",
+		"remarks":""
+	},
+	{
+		"meterId":"1194802",
+		"gatewayId":"B1A9",
+		"deveui":"9873D",
+		"zoneNo":"zone1",
+		"dmaNo":"1472",
+		"timestamp":"2024-05-30 18:52:33",
+		"reading":"22.3",
+		"consumed":"678",
+		"status":"Active",
+		"batteryLife":"OxFE",
+		"remarks":""
+	}]
+}

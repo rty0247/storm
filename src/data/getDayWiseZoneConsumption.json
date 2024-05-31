@@ -1,0 +1,55 @@
+{
+    "2024-05-24": {
+        "average": "45",
+        "zoneDetails": [
+            {
+                "zoneId": "83292",
+                "zoneName": "Zone 1",
+                "inflow": "5604.3",
+                "consumption": "5604.3",
+                "total": "100"
+            },
+            {
+                "zoneId": "83292",
+                "zoneName": "Zone 1",
+                "inflow": "5604.3",
+                "consumption": "5604.3",
+                "total": "100"
+            },
+            {
+                "zoneId": "83292",
+                "zoneName": "Zone 1",
+                "inflow": "5604.3",
+                "consumption": "5604.3",
+                "total": "100"
+            }
+        ]
+    },
+    "2024-05-25": {
+        "average": "45",
+        "zoneDetails": [
+            {
+                "zoneId": "83292",
+                "zoneName": "Zone 1",
+                "inflow": "5604.3",
+                "consumption": "5604.3",
+                "total": "100"
+            },
+            {
+                "zoneId": "83292",
+                "zoneName": "Zone 1",
+                "inflow": "5604.3",
+                "consumption": "5604.3",
+                "total": "100"
+            },
+            {
+                "zoneId": "83292",
+                "zoneName": "Zone 1",
+                "inflow": "5604.3",
+                "consumption": "5604.3",
+                "total": "100"
+            }
+        ]
+    }
+}
+			

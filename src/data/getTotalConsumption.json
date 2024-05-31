@@ -1,0 +1,59 @@
+
+{
+	"consumptionDetails":{
+		"count":"5203.4",
+		"label":"Consumption",
+		"lastWeekPercentage":"7",
+		"action":"decreased"
+		},
+	"inFlowDetails":{
+		"count":"5603.4",
+		"label":"In Flow",
+		"lastWeekPercentage":"7",
+		"action":"increased"
+		},
+	"totalConsumption":[{
+            "date": "2024-05-17",
+            "day": "Monday",
+            "inflow": "200",
+            "consumption": "600"
+        },
+        {
+            "date": "2024-05-18",
+            "day": "Tuesday",
+            "inflow": "200",
+            "consumption": "600"
+        },
+        {
+            "date": "2024-05-19",
+            "day": "Wednesday",
+            "inflow": "200",
+            "consumption": "600"
+        },
+        {
+            "date": "2024-05-20",
+            "day": "Thursday",
+            "inflow": "200",
+            "consumption": "600"
+        },
+        {
+            "date": "2024-05-21",
+            "day": "Friday",
+            "inflow": "200",
+            "consumption": "600"
+        },
+        {
+            "date": "2024-05-22",
+            "day": "Saturday",
+            "inflow": "200",
+            "consumption": "600"
+        },
+        {
+            "date": "2024-05-23",
+            "day": "Sunday",
+            "inflow": "200",
+            "consumption": "600"
+        }
+    ]
+		
+}

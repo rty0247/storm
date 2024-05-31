@@ -94,4 +94,92 @@ router.post('/getAllClients', (req, res) => {
         res.json(JSON.parse(data));
     });
 });
+
+router.post('/getMeterDetails', (req, res) => {
+    const filePath = path.join(__dirname, '../data/getMeterDetails.json');
+    console.log(filePath)
+    fs.readFile(filePath, 'utf8', (err, data) => {
+        if (err) {
+            return res.status(500).json({ error: 'Failed to read data file' });
+        }
+        res.json(JSON.parse(data));
+    });
+});
+
+router.post('/getTotalConsumption', (req, res) => {
+    const filePath = path.join(__dirname, '../data/getTotalConsumption.json');
+    console.log(filePath)
+    fs.readFile(filePath, 'utf8', (err, data) => {
+        if (err) {
+            return res.status(500).json({ error: 'Failed to read data file' });
+        }
+        res.json(JSON.parse(data));
+    });
+});
+
+router.post('/getZoneWiseConsumption', (req, res) => {
+    const filePath = path.join(__dirname, '../data/getZonewiseConsumption.json');
+    console.log(filePath)
+    fs.readFile(filePath, 'utf8', (err, data) => {
+        if (err) {
+            return res.status(500).json({ error: 'Failed to read data file' });
+        }
+        res.json(JSON.parse(data));
+    });
+});
+
+router.post('/getDmaWiseConsumption', (req, res) => {
+    const filePath = path.join(__dirname, '../data/getDmawiseConsumption.json');
+    console.log(filePath)
+    fs.readFile(filePath, 'utf8', (err, data) => {
+        if (err) {
+            return res.status(500).json({ error: 'Failed to read data file' });
+        }
+        res.json(JSON.parse(data));
+    });
+});
+
+router.post('/getDayWiseZoneConsumption', (req, res) => {
+    const filePath = path.join(__dirname, '../data/getDayWiseZoneConsumption.json');
+    console.log(filePath)
+    fs.readFile(filePath, 'utf8', (err, data) => {
+        if (err) {
+            return res.status(500).json({ error: 'Failed to read data file' });
+        }
+        res.json(JSON.parse(data));
+    });
+});
+
+router.post('/getCustomerSegmentation', (req, res) => {
+    const filePath = path.join(__dirname, '../data/getCustomerSegmentation.json');
+    console.log(filePath)
+    fs.readFile(filePath, 'utf8', (err, data) => {
+        if (err) {
+            return res.status(500).json({ error: 'Failed to read data file' });
+        }
+        res.json(JSON.parse(data));
+    });
+});
+
+router.post('/getZoneSegmentation', (req, res) => {
+    const filePath = path.join(__dirname, '../data/getZoneSegmentation.json');
+    console.log(filePath)
+    fs.readFile(filePath, 'utf8', (err, data) => {
+        if (err) {
+            return res.status(500).json({ error: 'Failed to read data file' });
+        }
+        res.json(JSON.parse(data));
+    });
+});
+
+router.post('/getDmasBasedOnZones', (req, res) => {
+    const filePath = path.join(__dirname, '../data/getDmasBasedOnZones.json');
+    console.log(filePath)
+    fs.readFile(filePath, 'utf8', (err, data) => {
+        if (err) {
+            return res.status(500).json({ error: 'Failed to read data file' });
+        }
+        res.json(JSON.parse(data));
+    });
+});
 module.exports = router;

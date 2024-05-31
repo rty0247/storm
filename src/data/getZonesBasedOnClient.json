@@ -1,0 +1,54 @@
+{
+	"zonesList" : [
+		{
+			"zoneId" : "#Zone1",
+			"region" : "IN865",
+			"gatewayId" : "0xF04CD5FFFE01B1A9",
+			"lastCommunicationTime" : "2024-05-31 11:28:69",
+			"reading" : "17.878",
+			"dmas" : "5",
+			"meters" : "6969",
+			"status" : "Active"
+		},
+		{
+			"zoneId" : "#Zone2",
+			"region" : "IN865",
+			"gatewayId" : "0xF04CD5FFFE01B1A9",
+			"lastCommunicationTime" : "2024-05-31 11:28:69",
+			"reading" : "17.878",
+			"dmas" : "5",
+			"meters" : "6969",
+			"status" : "Active"
+		},
+		{
+			"zoneId" : "#Zone3",
+			"region" : "IN865",
+			"gatewayId" : "0xF04CD5FFFE01B1A9",
+			"lastCommunicationTime" : "2024-05-31 11:28:69",
+			"reading" : "17.878",
+			"dmas" : "5",
+			"meters" : "6969",
+			"status" : "Active"
+		},
+		{
+			"zoneId" : "#Zone4",
+			"region" : "IN865",
+			"gatewayId" : "0xF04CD5FFFE01B1A9",
+			"lastCommunicationTime" : "2024-05-31 11:28:69",
+			"reading" : "17.878",
+			"dmas" : "5",
+			"meters" : "6969",
+			"status" : "Active"
+		},
+		{
+			"zoneId" : "#Zone5",
+			"region" : "IN865",
+			"gatewayId" : "0xF04CD5FFFE01B1A9",
+			"lastCommunicationTime" : "2024-05-31 11:28:69",
+			"reading" : "17.878",
+			"dmas" : "5",
+			"meters" : "6969",
+			"status" : "Active"
+		}
+	]
+}

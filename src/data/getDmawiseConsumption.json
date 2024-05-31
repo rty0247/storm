@@ -1,0 +1,25 @@
+
+{
+	"totalConsumption":"5788Kl",
+	"dmaDetails":[{
+		"dmaId":"#DMA1",
+		"gatewayId":"B1A9",
+		"lastCommunication":"2024-05-31",
+		"meters":"860",
+		"status":"Active"
+		},
+		{
+		"dmaId":"#DMA2",
+		"gatewayId":"B1A9",
+		"lastCommunication":"2024-05-31",
+		"meters":"657",
+		"status":"Active"
+		},
+		{
+		"dmaId":"#DMA3",
+		"gatewayId":"B1A9",
+		"lastCommunication":"2024-05-31",
+		"meters":"1257",
+		"status":"Active"
+		}]
+}
