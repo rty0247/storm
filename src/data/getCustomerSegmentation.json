@@ -4,7 +4,7 @@
 			"can" : "#1472",
 			"type" : "OTAA",
 			"gatewayId" : "0xF04CD5FFFE01B1A9",
-			"lastCommunicationTime" : "2024-05-31 11:28:69"
+			"lastCommunicationTime" : "2024-05-31 11:28:69",
 			"reading" : "17.878",
 			"zones" : "5",
 			"status" : "Active"
@@ -13,7 +13,7 @@
 			"can" : "#1472",
 			"type" : "OTAA",
 			"gatewayId" : "0xF04CD5FFFE01B1A9",
-			"lastCommunicationTime" : "2024-05-31 11:28:69"
+			"lastCommunicationTime" : "2024-05-31 11:28:69",
 			"reading" : "17.878",
 			"zones" : "5",
 			"status" : "Active"
@@ -22,7 +22,7 @@
 			"can" : "#1472",
 			"type" : "OTAA",
 			"gatewayId" : "0xF04CD5FFFE01B1A9",
-			"lastCommunicationTime" : "2024-05-31 11:28:69"
+			"lastCommunicationTime" : "2024-05-31 11:28:69",
 			"reading" : "17.878",
 			"zones" : "5",
 			"status" : "Active"
@@ -31,7 +31,7 @@
 			"can" : "#1472",
 			"type" : "ABP",
 			"gatewayId" : "0xF04CD5FFFE01B1A9",
-			"lastCommunicationTime" : "2024-05-31 11:28:69"
+			"lastCommunicationTime" : "2024-05-31 11:28:69",
 			"reading" : "17.878",
 			"zones" : "5",
 			"status" : "Active"
@@ -40,7 +40,7 @@
 			"can" : "#1472",
 			"type" : "OTAA",
 			"gatewayId" : "0xF04CD5FFFE01B1A9",
-			"lastCommunicationTime" : "2024-05-31 11:28:69"
+			"lastCommunicationTime" : "2024-05-31 11:28:69",
 			"reading" : "17.878",
 			"zones" : "5",
 			"status" : "Active"

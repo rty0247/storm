@@ -11,6 +11,10 @@ const routes = require('./src/routes/Routes');
 const lnsPostdata03Routes = require('./src/routes/lnsPostdata03Routes');
 const lwKeys02Routes = require('./src/routes/lwKeys02Routes');
 const dashboardRoutes = require('./src/routes/dashboardRoutes');
+const clientRoutes = require('./src/routes/clientRoutes');
+const zoneRoutes = require('./src/routes/zoneRoutes');
+const dmaRoutes = require('./src/routes/dmaRoutes');
+const meterRoutes = require('./src/routes/meterRoutes');
 
 
 const app = express();
@@ -18,6 +22,10 @@ const port = 3307;
 
 app.use(bodyParser.json());
 app.use('/api', dashboardRoutes);
+app.use('/clients', clientRoutes);
+app.use('/zones', zoneRoutes);
+app.use('/dma', dmaRoutes);
+app.use('/meters', meterRoutes);
 app.use('/postData', lnsPostdata03Routes);
 app.use('/keys', lwKeys02Routes);
 

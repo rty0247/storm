@@ -2,12 +2,6 @@
     "minRange": "0",
     "maxRange": "2000",
     "difference":"200",
-    "outFlowToolTip": {
-        "totalFlowlabel": "Total Flow",
-        "totalOutFlowLabel": "Total OutFlow",
-        "totalFlowColor": "Blue",
-        "totalOutFlowColor": "DarkBlue"
-    },
     "totalOutFlow": [
         {
             "date": "2024-05-17",

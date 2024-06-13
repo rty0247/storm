@@ -4,18 +4,10 @@
             "clientId": 1,
             "clientName": "KSCCL-WATER",
             "type": "OTAA",
-            "region": {
-                "name": "IN865",
-                "color": "#ffff",
-                "backgroundColor": "#fffff"
-            },
+            "region": "IN865",
             "createdTime": "2024-05-30 16:27:55",
             "meters": "4500",
-            "status": {
-                "name": "Active",
-                "color": "#ffff",
-                "backgroundColor": "#fffff"
-            },
+            "status": "Active",
             "snumber": "122221"
         },
         {

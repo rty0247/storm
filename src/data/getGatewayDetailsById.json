@@ -3,24 +3,12 @@
         "id": "B1A9",
         "type": "B1A9",
         "subnet": "CH_00-07",
-        "ceacon": {
-            "name": "Disabled",
-            "color": "#ffff",
-            "backgroundColor": "#fffff"
-        },
-        "transmittingPower": {
-            "name": "Custom",
-            "color": "yellow",
-            "backgroundColor": "yellow"
-        },
+        "ceacon": "Disabled",
+        "transmittingPower": "Custom",
         "createdTime": "2024-5-30 11:42:34",
         "name": "GW12_BEE",
         "region": "IN865",
-        "beacon": {
-            "name": "Disabled",
-            "color": "#ffff",
-            "backgroundColor": "#fffff"
-        },
+        "beacon": "Disabled",
         "gdtp": "21",
         "http": "http://49.207.11.223:17070",
         "remarks": "GW12_BEE"
@@ -34,11 +22,7 @@
         "type": "Unconfirmed Data up",
         "rssi(dBm)": "79",
         "sf": "12",
-        "loraMod": {
-            "name": "LoRa",
-            "color": "#ffff",
-            "backgroundColor": "#fffff"
-        },
+        "loraMod": "LoRa",
         "remarks": "2024-05-30 11:51:22"
     }
 }
