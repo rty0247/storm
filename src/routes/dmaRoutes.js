@@ -5,5 +5,6 @@ const router = express.Router();
 const dmaController = require('../controllers/DMAController');
 
 router.post('/getAllDMAsWithClientIdAndZoneId', dmaController.getAllDMAsWithClientIdAndZoneId);
+router.post('/getDMAOutFlowInGateWayDashBoard', dmaController.getDMAOutFlowInGateWayDashBoard);
 
 module.exports = router;
