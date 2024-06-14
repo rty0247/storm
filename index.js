@@ -23,6 +23,7 @@ const port = 3307;
 
 app.use(cors()); 
 app.use(bodyParser.json());
+app.use('/dashboard', dashboardRoutes);
 app.use('/api', dashboardRoutes);
 app.use('/clients', clientRoutes);
 app.use('/zones', zoneRoutes);

@@ -1,14 +1,14 @@
-// src/routes/dashboardRoutes.js
-
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
 const router = express.Router();
 const userController = require('../controllers/userController');
+const dashboardController = require('../controllers/DashboardController');
 
 
 router.post('/createUser', userController.createUser);
 router.post('/login', userController.loginUser);
+router.post('/getTotalOutflowInDashboard', dashboardController.getTotalOutflow);
 router.post('/getTotalDashboards', (req, res) => {
     const{clientId,zoneId,fromDate,toDate} = req.body;
     console.log(clientId,"ClientID")
