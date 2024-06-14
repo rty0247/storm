@@ -62,83 +62,141 @@ function getDatesBetween(startDate, endDate) {
   return dates;
 };
 
+// exports.getAllDashboardValues = async (req, res) => {
+//     const { clientId } = req.body;
+  
+//     try {
+//       const zoneResult = await sequelize.query('CALL USP_GetZoneCountKPI(:clientId)', {
+//         replacements: { clientId },
+//         type: sequelize.QueryTypes.RAW
+//       });
+
+//       const dmaResult = await sequelize.query('CALL USP_GetDMACountKPI(:clientId)', {
+//         replacements: { clientId },
+//         type: sequelize.QueryTypes.RAW
+//       });
+
+//       /*const meterResult = await sequelize.query('CALL USP_GetDMADetails(:clientId, :zoneId)', {
+//         replacements: { clientId },
+//         type: sequelize.QueryTypes.RAW
+//       });
+
+//       const gatewayResult = await sequelize.query('CALL USP_GetDMADetails(:clientId, :zoneId)', {
+//         replacements: { clientId },
+//         type: sequelize.QueryTypes.RAW
+//       });*/
+
+        
+  
+//         const dmaDetails = {
+//             activeDma : dmaResult.ActiveDMA,
+//             inactiveDma : dmaResult.InActiveDMA,
+//             faultyDma : dmaResult.FaultyDAM,
+//             totalCount : dmaResult.TotalDMA
+//         };
+//         const zoneDetails = {
+//             activeZones: zoneResult.ActiveZone,
+//             inactiveZones: zoneResult.InActiveZone,
+//             totalCount: zoneResult.TotalZone
+//         };
+        
+//         /*const meterDetails = meterResult.map(meter => ({
+//             activeMeters : meter.ActiveMeter,
+//             inactiveMeters : meter.InActiveMeter,
+//             faultyMeters : meter.FaultyMeter,
+//             totalCount : meter.TotalMeter
+//         }));
+
+//         const gatewayDetails = gatewayResult.map(gateway => ({
+//             activeGateways : gateway.ActiveGateways,
+//             inactiveGateways : gateway.InActiveGateways,
+//             totalCount : gateway.TotalGateways
+//         }))*/
+
+//         const meterDetails = {
+//             activeMeters : 4500,
+//             inactiveMeters : 450,
+//             faultyMeters : 50,
+//             totalCount : 5000
+//         }; 
+
+//         const gatewayDetails = {
+//             activeGateways : 45,
+//             inactiveGateways : 5,
+//             totalCount : 50
+//         };
+
+  
+//       res.status(200).json({
+//         totalZone : zoneDetails,
+//         totalDma : dmaDetails,
+//         totalMeters : meterDetails,
+//         totalGateway : gatewayDetails
+//       });
+//     } catch (error) {
+//       console.error('Error fetching client details:', error);
+//       res.status(500).json({
+//         success: false,
+//         message: 'An error occurred while fetching client details.',
+//         error: error.message
+//       });
+//     }
+//   };
+  
+
 exports.getAllDashboardValues = async (req, res) => {
     const { clientId } = req.body;
   
     try {
-      const zoneResult = await sequelize.query('CALL USP_GetZoneCountKPI(:clientId)', {
-        replacements: { clientId },
-        type: sequelize.QueryTypes.RAW
-      });
+        const zoneResult = await sequelize.query('CALL USP_GetZoneCountKPI(:clientId)', {
+            replacements: { clientId },
+            type: sequelize.QueryTypes.RAW
+        });
 
-      const dmaResult = await sequelize.query('CALL USP_GetDMACountKPI(:clientId)', {
-        replacements: { clientId },
-        type: sequelize.QueryTypes.RAW
-      });
+        const dmaResult = await sequelize.query('CALL USP_GetDMACountKPI(:clientId)', {
+            replacements: { clientId },
+            type: sequelize.QueryTypes.RAW
+        });
 
-      /*const meterResult = await sequelize.query('CALL USP_GetDMADetails(:clientId, :zoneId)', {
-        replacements: { clientId },
-        type: sequelize.QueryTypes.RAW
-      });
+        const dmaDetails = {
+            activeDma: dmaResult[0]?.ActiveDMA || 0,
+            inactiveDma: dmaResult[0]?.InActiveDMA || 0,
+            faultyDma: dmaResult[0]?.FaultyDAM || 0,
+            totalCount: dmaResult[0]?.TotalDMA || 0
+        };
 
-      const gatewayResult = await sequelize.query('CALL USP_GetDMADetails(:clientId, :zoneId)', {
-        replacements: { clientId },
-        type: sequelize.QueryTypes.RAW
-      });*/
-
-        const zoneDetails = zoneResult[0].map(zone => ({
-            activeZones : zone.ActiveZone,
-            inactiveZones : zone.InActiveZone,
-            totalCount : zone.TotalZone
-        }));
-  
-        const dmaDetails = dmaResult[0].map(dma => ({
-            activeDma : dma.ActiveDMA,
-            inactiveDma : dma.InActiveDMA,
-            faultyDma : dma.FaultyDAM,
-            totalCount : dma.TotalDMA
-        }));
-
-        /*const meterDetails = meterResult.map(meter => ({
-            activeMeters : meter.ActiveMeter,
-            inactiveMeters : meter.InActiveMeter,
-            faultyMeters : meter.FaultyMeter,
-            totalCount : meter.TotalMeter
-        }));
-
-        const gatewayDetails = gatewayResult.map(gateway => ({
-            activeGateways : gateway.ActiveGateways,
-            inactiveGateways : gateway.InActiveGateways,
-            totalCount : gateway.TotalGateways
-        }))*/
+        const zoneDetails = {
+            activeZones: zoneResult[0]?.ActiveZone || 0,
+            inactiveZones: zoneResult[0]?.InActiveZone || 0,
+            totalCount: zoneResult[0]?.TotalZone || 0
+        };
 
         const meterDetails = {
-            activeMeters : 4500,
-            inactiveMeters : 450,
-            faultyMeters : 50,
-            totalCount : 5000
+            activeMeters: 4500,
+            inactiveMeters: 450,
+            faultyMeters: 50,
+            totalCount: 5000
         }; 
 
         const gatewayDetails = {
-            activeGateways : 45,
-            inactiveGateways : 5,
-            totalCount : 50
+            activeGateways: 45,
+            inactiveGateways: 5,
+            totalCount: 50
         };
 
-  
-      res.status(200).json({
-        totalZone : zoneDetails,
-        totalDma : dmaDetails,
-        totalMeters : meterDetails,
-        totalGateway : gatewayDetails
-      });
+        res.status(200).json({
+            totalZone: zoneDetails,
+            totalDma: dmaDetails,
+            totalMeters: meterDetails,
+            totalGateway: gatewayDetails
+        });
     } catch (error) {
-      console.error('Error fetching client details:', error);
-      res.status(500).json({
-        success: false,
-        message: 'An error occurred while fetching client details.',
-        error: error.message
-      });
+        console.error('Error fetching client details:', error);
+        res.status(500).json({
+            success: false,
+            message: 'An error occurred while fetching client details.',
+            error: error.message
+        });
     }
-  };
-  
+};
+
