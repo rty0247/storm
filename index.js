@@ -3,6 +3,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const sequelize = require('./src/config/db'); // Make sure to require the sequelize instance
+const cors = require('cors');
 require('./src/models/lnsPostdata03'); // Load the models
 require('./src/models/lwkeys02'); // Load the models
 require('./src/models/associations'); // Load associations
@@ -20,6 +21,7 @@ const meterRoutes = require('./src/routes/meterRoutes');
 const app = express();
 const port = 3307;
 
+app.use(cors()); 
 app.use(bodyParser.json());
 app.use('/api', dashboardRoutes);
 app.use('/clients', clientRoutes);
