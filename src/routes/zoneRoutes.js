@@ -5,6 +5,6 @@ const router = express.Router();
 const zoneController = require('../controllers/ZoneController');
 
 router.post('/getAllZoneDetailsWithClientId', zoneController.getAllZoneDetailsWithClientId);
-router.post('/getZoneWiseConsumptionInClientDashboard', zoneController.getZoneWiseConsumptionInClientDashboard);
+router.post('/getZoneWiseConsumptionInClientDashboardsss', zoneController.getZoneWiseConsumptionInClientDashboard);
 
 module.exports = router;
