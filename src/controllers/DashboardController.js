@@ -62,88 +62,6 @@ function getDatesBetween(startDate, endDate) {
   return dates;
 };
 
-// exports.getAllDashboardValues = async (req, res) => {
-//     const { clientId } = req.body;
-  
-//     try {
-//       const zoneResult = await sequelize.query('CALL USP_GetZoneCountKPI(:clientId)', {
-//         replacements: { clientId },
-//         type: sequelize.QueryTypes.RAW
-//       });
-
-//       const dmaResult = await sequelize.query('CALL USP_GetDMACountKPI(:clientId)', {
-//         replacements: { clientId },
-//         type: sequelize.QueryTypes.RAW
-//       });
-
-//       /*const meterResult = await sequelize.query('CALL USP_GetDMADetails(:clientId, :zoneId)', {
-//         replacements: { clientId },
-//         type: sequelize.QueryTypes.RAW
-//       });
-
-//       const gatewayResult = await sequelize.query('CALL USP_GetDMADetails(:clientId, :zoneId)', {
-//         replacements: { clientId },
-//         type: sequelize.QueryTypes.RAW
-//       });*/
-
-        
-  
-//         const dmaDetails = {
-//             activeDma : dmaResult.ActiveDMA,
-//             inactiveDma : dmaResult.InActiveDMA,
-//             faultyDma : dmaResult.FaultyDAM,
-//             totalCount : dmaResult.TotalDMA
-//         };
-//         const zoneDetails = {
-//             activeZones: zoneResult.ActiveZone,
-//             inactiveZones: zoneResult.InActiveZone,
-//             totalCount: zoneResult.TotalZone
-//         };
-        
-//         /*const meterDetails = meterResult.map(meter => ({
-//             activeMeters : meter.ActiveMeter,
-//             inactiveMeters : meter.InActiveMeter,
-//             faultyMeters : meter.FaultyMeter,
-//             totalCount : meter.TotalMeter
-//         }));
-
-//         const gatewayDetails = gatewayResult.map(gateway => ({
-//             activeGateways : gateway.ActiveGateways,
-//             inactiveGateways : gateway.InActiveGateways,
-//             totalCount : gateway.TotalGateways
-//         }))*/
-
-//         const meterDetails = {
-//             activeMeters : 4500,
-//             inactiveMeters : 450,
-//             faultyMeters : 50,
-//             totalCount : 5000
-//         }; 
-
-//         const gatewayDetails = {
-//             activeGateways : 45,
-//             inactiveGateways : 5,
-//             totalCount : 50
-//         };
-
-  
-//       res.status(200).json({
-//         totalZone : zoneDetails,
-//         totalDma : dmaDetails,
-//         totalMeters : meterDetails,
-//         totalGateway : gatewayDetails
-//       });
-//     } catch (error) {
-//       console.error('Error fetching client details:', error);
-//       res.status(500).json({
-//         success: false,
-//         message: 'An error occurred while fetching client details.',
-//         error: error.message
-//       });
-//     }
-//   };
-  
-
 exports.getAllDashboardValues = async (req, res) => {
     const { clientId } = req.body;
   
@@ -200,3 +118,55 @@ exports.getAllDashboardValues = async (req, res) => {
     }
 };
 
+exports.getTotalConsumptionInClientDashboard = async (req, res) => {
+  const { clientId, zoneId, fromDate, toDate } = req.body;
+
+  try {
+      const result = await sequelize.query('CALL USP_GetTotalConsumptionKPI(:clientId, :zoneId, :fromDate, :toDate)', {
+          replacements: { clientId, zoneId, fromDate, toDate },
+          type: sequelize.QueryTypes.RAW
+      });
+
+      let totalInFlow = 0;
+      let totalOutFlow = 0; 
+
+      result.forEach(reading => {
+        totalInFlow += parseFloat(reading.TotalInFlow) || 0;
+        totalOutFlow += parseFloat(reading.TotalOutFlow) || 0;
+      });
+
+      const inFlowDetails = {
+        count : totalInFlow,
+        label : "In Flow",
+        lastWeekPercentage : "7",
+        action : "increased"
+      };
+
+      const consumptionDetails = {
+        count : totalOutFlow,
+        label : "Consumption",
+        lastWeekPercentage : "7",
+        action : "decreased"
+      };
+
+      const dmaDetails = result.map(dma => ({
+        date : dma.ReadingDate,
+        inflow : parseFloat(dma.TotalInFlow) || 0,
+        consumption : parseFloat(dma.TotalOutFlow) || 0
+      }));
+
+
+      res.status(200).json({
+        inFlowDetails: inFlowDetails,
+        consumptionDetails: consumptionDetails,
+        totalConsumption: dmaDetails
+      });
+  } catch (error) {
+      console.error('Error fetching values :', error);
+      res.status(500).json({
+          success: false,
+          message: 'An error occurred while fetching total consumption values.',
+          error: error.message
+      });
+  }
+};

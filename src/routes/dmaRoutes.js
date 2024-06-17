@@ -6,5 +6,6 @@ const dmaController = require('../controllers/DMAController');
 
 router.post('/getAllDMAsWithClientIdAndZoneId', dmaController.getAllDMAsWithClientIdAndZoneId);
 router.post('/getDMAOutFlowInGateWayDashBoard', dmaController.getDMAOutFlowInGateWayDashBoard);
+router.post('/getDMAWiseConsumptionInClientDashboard', dmaController.getDMAWiseConsumptionInClientDashboard);
 
 module.exports = router;

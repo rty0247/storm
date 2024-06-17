@@ -81,3 +81,51 @@ exports.getDMAOutFlowInGateWayDashBoard = async (req, res) => {
     });
   }
 };
+
+exports.getDMAWiseConsumptionInClientDashboard = async (req, res) => {
+  const { clientId, zoneId, fromDate, toDate } = req.body;
+
+  try {
+    const dmaCount = await sequelize.query('CALL USP_GetTotalDMAWiseConsumptionKPI(:clientId, :zoneId, :fromDate, :toDate)', {
+      replacements: { clientId, zoneId, fromDate, toDate },
+      type: sequelize.QueryTypes.RAW
+    });
+
+    const dmaList = await sequelize.query('CALL USP_GetTotalDMAWiseConsumptionList(:clientId, :zoneId, :fromDate, :toDate)', {
+      replacements: { clientId, zoneId, fromDate, toDate },
+      type: sequelize.QueryTypes.RAW
+    });
+
+    let totalConsumption = 0;
+
+    dmaCount.forEach(dma => {
+        totalConsumption += parseFloat(dma.TotalConsumption) || 0;
+      });
+
+      const dmaWiseConsumption = dmaCount.map(dma => ({
+        dmaId: dma.DMAID,
+        consumption:dma.TotalConsumption
+      }));
+
+      const dmaDetails = dmaList.map(dma => ({
+        dmaId : dma.DMAID,
+        gatewayId :dma.GatewayID,
+        lastCommunication : dma.LastCommunicationDateTime,
+        meters  :dma.MeterCount,
+        status  : dma.DMAStatus
+      }));
+
+    res.status(200).json({
+      totalConsumption : totalConsumption,
+      dmaWiseConsumption : dmaWiseConsumption,
+      dmaDetails: dmaDetails
+    });
+  } catch (error) {
+    console.error('Error fetching DMA details:', error);
+    res.status(500).json({
+      success: false,
+      message: 'An error occurred while fetching DMA details.',
+      error: error.message
+    });
+  }
+};

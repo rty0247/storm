@@ -10,6 +10,7 @@ router.post('/createUser', userController.createUser);
 router.post('/login', userController.loginUser);
 router.post('/getTotalOutflowInDashboard', dashboardController.getTotalOutflow);
 router.post('/getAllDashboardValues', dashboardController.getAllDashboardValues);
+router.post('/getTotalConsumptionInClientDashboard', dashboardController.getTotalConsumptionInClientDashboard);
 router.post('/getTotalDashboards', (req, res) => {
     const{clientId,zoneId,fromDate,toDate} = req.body;
     console.log(clientId,"ClientID")
