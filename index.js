@@ -16,6 +16,7 @@ const clientRoutes = require('./src/routes/clientRoutes');
 const zoneRoutes = require('./src/routes/zoneRoutes');
 const dmaRoutes = require('./src/routes/dmaRoutes');
 const meterRoutes = require('./src/routes/meterRoutes');
+const gatewayRoutes = require('./src/routes/gatewayRoutes');
 
 
 const app = express();
@@ -29,6 +30,7 @@ app.use('/clients', clientRoutes);
 app.use('/zones', zoneRoutes);
 app.use('/dma', dmaRoutes);
 app.use('/meters', meterRoutes);
+app.use('/gateways', gatewayRoutes);
 app.use('/postData', lnsPostdata03Routes);
 app.use('/keys', lwKeys02Routes);
 

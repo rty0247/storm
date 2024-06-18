@@ -1,67 +1,43 @@
 {
-    "gatewayDetails": [
-        {
-            "gatewayId": "B1A9",
-            "gatewayName": "GW12_BEE",
-            "region": {
-				"name":"IN865",
-				"color":"#ffff",
-				"backgroundColor":"#fffff"
-				},
-            "subnet": "CH_00-07",
-            "gateway": "RHF2S208",
-            "onlineStatus": {
-				"name":"Active",
-				"color":"#ffff",
-				"backgroundColor":"#fffff"
-				},
-            "connection": "MQTT",
-            "creator": "StormEnergy",
-            "lastStatsSeen": "2024-05-30 11:31:09",
-            "tag": "",
-            "remarks": "GW12_BEE"
-        },
-        {
-            "gatewayId": "B1A9",
-            "gatewayName": "GW12_BEE",
-            "region": {
-				"name":"IN865",
-				"color":"#ffff",
-				"backgroundColor":"#fffff"
-				},
-            "subnet": "CH_00-07",
-            "gateway": "RHF2S208",
-            "onlineStatus": {
-				"name":"Active",
-				"color":"#ffff",
-				"backgroundColor":"#fffff"
-				},
-            "connection": "MQTT",
-            "creator": "StormEnergy",
-            "lastStatsSeen": "2024-05-30 11:31:09",
-            "tag": "",
-            "remarks": "GW12_BEE"
-        },
-        {
-            "gatewayId": "B1A9",
-            "gatewayName": "GW12_BEE",
-            "region": {
-				"name":"IN865",
-				"color":"#ffff",
-				"backgroundColor":"#fffff"
-				},
-            "subnet": "CH_00-07",
-            "gateway": "RHF2S208",
-            "onlineStatus": {
-				"name":"Active",
-				"color":"#ffff",
-				"backgroundColor":"#fffff"
-				},
-            "connection": "MQTT",
-            "creator": "StormEnergy",
-            "lastStatsSeen": "2024-05-30 11:31:09",
-            "tag": "",
-            "remarks": "GW12_BEE"
-        }
-    ]
+   "gatewayDetails": [
+      {
+         "gatewayId": "B1A9",
+         "gatewayName": "GW12_BEE",
+         "region": "IN865",
+         "subnet": "CH_00-07",
+         "gateway": "RHF2S208",
+         "onlineStatus": "Active",
+         "connection": "MQTT",
+         "creator": "StormEnergy",
+         "lastStatsSeen": "2024-05-30 11:31:09",
+         "tag": "",
+         "remarks": "GW12_BEE"
+      },
+      {
+         "gatewayId": "B1A9",
+         "gatewayName": "GW12_BEE",
+         "region": "IN865",
+         "subnet": "CH_00-07",
+         "gateway": "RHF2S208",
+         "onlineStatus": "Active",
+         "connection": "MQTT",
+         "creator": "StormEnergy",
+         "lastStatsSeen": "2024-05-30 11:31:09",
+         "tag": "",
+         "remarks": "GW12_BEE"
+      },
+      {
+         "gatewayId": "B1A9",
+         "gatewayName": "GW12_BEE",
+         "region": "IN865",
+         "subnet": "CH_00-07",
+         "gateway": "RHF2S208",
+         "onlineStatus": "Active",
+         "connection": "MQTT",
+         "creator": "StormEnergy",
+         "lastStatsSeen": "2024-05-30 11:31:09",
+         "tag": "",
+         "remarks": "GW12_BEE"
+      }
+   ]
 }

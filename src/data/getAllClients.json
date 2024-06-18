@@ -14,18 +14,10 @@
             "clientId": 2,
             "clientName": "TEST_ABP",
             "type": "ABP",
-            "region": {
-                "name": "IN865",
-                "color": "#ffff",
-                "backgroundColor": "#fffff"
-            },
+            "region": "IN865",
             "createdTime": "2024-05-30 16:27:55",
             "meters": "2",
-            "status": {
-                "name": "Active",
-                "color": "#ffff",
-                "backgroundColor": "#fffff"
-            },
+            "status": "Active",
             "snumber": "122221"
         }
     ]
