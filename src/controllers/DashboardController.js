@@ -86,6 +86,7 @@ exports.getAllDashboardValues = async (req, res) => {
           type: sequelize.QueryTypes.RAW
         });
 
+
         const dmaDetails = {
             activeDma: dmaResult[0]?.ActiveDMA || 0,
             inactiveDma: dmaResult[0]?.InActiveDMA || 0,
@@ -108,8 +109,8 @@ exports.getAllDashboardValues = async (req, res) => {
 
         const gatewayDetails = {
             activeGateways: gatewayResult[0]?.ActiveGateway || 0,
-            inactiveGateways: meterResult[0]?.InActiveGateway || 0,
-            totalCount: meterResult[0]?.TotalGateways || 0
+            inactiveGateways: gatewayResult[0]?.InActiveGateway || 0,
+            totalCount: gatewayResult[0]?.TotalGateways || 0
         };
 
         res.status(200).json({
