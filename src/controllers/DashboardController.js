@@ -76,6 +76,16 @@ exports.getAllDashboardValues = async (req, res) => {
             type: sequelize.QueryTypes.RAW
         });
 
+        const meterResult = await sequelize.query('CALL USP_GetMeterCountKPI(:clientId, 0, 0)', {
+          replacements: { clientId },
+          type: sequelize.QueryTypes.RAW
+        });
+
+        const gatewayResult = await sequelize.query('CALL USP_GetGatewayCountKPI(:clientId)', {
+          replacements: { clientId },
+          type: sequelize.QueryTypes.RAW
+        });
+
         const dmaDetails = {
             activeDma: dmaResult[0]?.ActiveDMA || 0,
             inactiveDma: dmaResult[0]?.InActiveDMA || 0,
@@ -90,16 +100,16 @@ exports.getAllDashboardValues = async (req, res) => {
         };
 
         const meterDetails = {
-            activeMeters: 4500,
-            inactiveMeters: 450,
+            activeMeters: meterResult[0]?.ActiveMeters || 0,
+            inactiveMeters: meterResult[0]?.InActiveMeters || 0,
             faultyMeters: 50,
-            totalCount: 5000
+            totalCount: meterResult[0]?.TotalMeters || 0,
         }; 
 
         const gatewayDetails = {
-            activeGateways: 45,
-            inactiveGateways: 5,
-            totalCount: 50
+            activeGateways: gatewayResult[0]?.ActiveGateway || 0,
+            inactiveGateways: meterResult[0]?.InActiveGateway || 0,
+            totalCount: meterResult[0]?.TotalGateways || 0
         };
 
         res.status(200).json({
