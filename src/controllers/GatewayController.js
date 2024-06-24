@@ -10,6 +10,7 @@ exports.getAllGatewaysWithClientId = async (req, res) => {
         });
 
         const gatewayDetails = result.map(gateway => ({
+            Id: gateway.ID,
             gatewayId: gateway.GatewayID,
             gatewayName: gateway.GatewayName,
             region: gateway.Region,
