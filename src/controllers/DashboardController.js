@@ -103,7 +103,7 @@ exports.getAllDashboardValues = async (req, res) => {
         const meterDetails = {
             activeMeters: meterResult[0]?.ActiveMeters || 0,
             inactiveMeters: meterResult[0]?.InActiveMeters || 0,
-            faultyMeters: 50,
+            faultyMeters: meterResult[0]?.FaultyMeters || 0,
             totalCount: meterResult[0]?.TotalMeters || 0,
         }; 
 
