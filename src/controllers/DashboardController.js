@@ -24,19 +24,20 @@ exports.getTotalOutflow = async (req, res) => {
 
     // Round the count to the nearest multiple of 500
     const roundedCount = Math.round(count / 500) * 500;
+    const difference  = Math.round(roundedCount / 5);
 
     // Ensure each date in the range has a reading
     const readings = dates.map(date => {
       const reading = readingsMap.get(date) || 0;
       return {
         date: date,
-        count: reading
+        count: Math.round(reading)
       };
     });
 
     res.status(200).json({
       minRange: 0,
-      maxRange: roundedCount,
+      maxRange: difference,
       difference: 200,
       totalOutFlow: readings
     });
@@ -87,12 +88,19 @@ exports.getAllDashboardValues = async (req, res) => {
         });
 
 
-        const dmaDetails = {
+        /*const dmaDetails = {
             activeDma: dmaResult[0]?.ActiveDMA || 0,
             inactiveDma: dmaResult[0]?.InActiveDMA || 0,
             faultyDma: dmaResult[0]?.FaultyDAM || 0,
             totalCount: dmaResult[0]?.TotalDMA || 0
-        };
+        };*/
+
+        const dmaDetails = {
+          activeDma: 50,
+          inactiveDma: 50,
+          faultyDma:  50,
+          totalCount: 150
+      };
 
         const zoneDetails = {
             activeZones: zoneResult[0]?.ActiveZone || 0,
@@ -101,6 +109,19 @@ exports.getAllDashboardValues = async (req, res) => {
         };
 
         const meterDetails = {
+          activeMeters: 50,
+          inactiveMeters: 50,
+          faultyMeters: 50,
+          totalCount: 150,
+      };
+
+      const gatewayDetails = {
+        activeGateways: 3,
+        inactiveGateways: 3,
+        totalCount: 6
+    };
+
+        /*const meterDetails = {
             activeMeters: meterResult[0]?.ActiveMeters || 0,
             inactiveMeters: meterResult[0]?.InActiveMeters || 0,
             faultyMeters: meterResult[0]?.FaultyMeters || 0,
@@ -111,7 +132,7 @@ exports.getAllDashboardValues = async (req, res) => {
             activeGateways: gatewayResult[0]?.ActiveGateway || 0,
             inactiveGateways: gatewayResult[0]?.InActiveGateway || 0,
             totalCount: gatewayResult[0]?.TotalGateways || 0
-        };
+        };*/
 
         res.status(200).json({
             totalZone: zoneDetails,
