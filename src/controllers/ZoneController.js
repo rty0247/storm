@@ -110,8 +110,8 @@ function formatResult(result) {
     formattedResult[date].zoneDetails.push({
       zoneId: reading.ZoneID,
       zoneName: `Zone ${reading.ZoneID}`, // Assuming you want to use ZoneID for ZoneName
-      inflow: parseFloat(reading.Inflow).toFixed(1),
-      consumption: parseFloat(reading.Consumption).toFixed(1),
+      inflow: Math.round(parseFloat(reading.Inflow).toFixed(1)),
+      consumption: Math.round(parseFloat(reading.Consumption).toFixed(1)),
       total: parseFloat(reading.Total).toFixed(1)
     });
 
