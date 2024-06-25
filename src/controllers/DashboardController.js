@@ -19,6 +19,7 @@ exports.getTotalOutflow = async (req, res) => {
       if (reading.Reading > 0) {
         count += reading.Reading;
       }
+      
       readingsMap.set(reading.ReadingDate, reading.Reading);
     });
 
@@ -30,15 +31,15 @@ exports.getTotalOutflow = async (req, res) => {
     const readings = dates.map(date => {
       const reading = readingsMap.get(date) || 0;
       return {
-        date: date,
+        date: convertYYYYMMDDtoMMDD(date),
         count: Math.round(reading)
       };
     });
 
     res.status(200).json({
       minRange: 0,
-      maxRange: difference,
-      difference: 200,
+      maxRange: roundedCount,
+      difference: difference,
       totalOutFlow: readings
     });
   } catch (error) {
@@ -201,4 +202,13 @@ exports.getTotalConsumptionInClientDashboard = async (req, res) => {
           error: error.message
       });
   }
+};
+
+
+function convertYYYYMMDDtoMMDD(dateString) {
+  // Split the date string into an array
+  const [year, month, day] = dateString.split('-');
+  
+  // Return the formatted date string as mm/dd
+  return `${month}/${day}`;
 };
