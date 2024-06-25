@@ -130,3 +130,11 @@ exports.getDMAWiseConsumptionInClientDashboard = async (req, res) => {
     });
   }
 };
+
+function convertYYYYMMDDtoMMDD(dateString) {
+  // Split the date string into an array
+  const [year, month, day] = dateString.split('-');
+  
+  // Return the formatted date string as mm/dd
+  return `${month}/${day}`;
+};
