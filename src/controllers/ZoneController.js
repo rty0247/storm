@@ -149,3 +149,35 @@ exports.getDayWiseZoneConsumptionInClientDashboard = async (req, res) => {
     });
   }
 };
+
+exports.getTotalZoneWiseSegementation = async (req, res) => {
+  const { clientId, zoneId } = req.body;
+
+  try {
+    const result = await sequelize.query('CALL USP_GetTotalZoneWiseSegmentation(:clientId, :zoneId)', {
+      replacements: { clientId, zoneId },
+      type: sequelize.QueryTypes.RAW
+    });
+
+    const zoneDetails = result.map(zone => ({
+      zoneId : zone.ZoneID,
+	    gatewayId : zone.GatewayID,
+	    lastCommunicationTime : zone.LastCommunicationTime,
+	    reading : parseFloat(zone.Reading.toFixed(3)),
+      dmas: zone.DMAs,
+	    meters : zone.Meters,
+	    status : zone.Status
+    }));
+
+    res.status(200).json({
+      zoneDetails: zoneDetails
+    });
+  } catch (error) {
+    console.error('Error fetching client details:', error);
+    res.status(500).json({
+      success: false,
+      message: 'An error occurred while fetching client details.',
+      error: error.message
+    });
+  }
+};

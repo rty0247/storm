@@ -5,5 +5,6 @@ const router = express.Router();
 const clientController = require('../controllers/ClientController');
 
 router.post('/getAllClients', clientController.getClientDetails);
+router.post('/getTotalCustomerWiseSegementation', clientController.getTotalCustomerWiseSegementation);
 
 module.exports = router;
