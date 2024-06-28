@@ -8,22 +8,20 @@ exports.getAllGatewaysWithClientId = async (req, res) => {
             replacements: { clientId },
             type: sequelize.QueryTypes.RAW
         });
-
-        const gatewayDetails = result.map(gateway => ({
-            Id: gateway.ID,
-            gatewayId: gateway.GatewayID,
-            gatewayName: gateway.GatewayName,
-            region: gateway.Region,
-            subnet: gateway.Subnet,
-            gateway: gateway.Gateway,
-            onlineStatus: gateway.OnlineStatus,
-            connection: gateway.Connection,
-            creator: gateway.Creator,
-            lastStatsSeen: gateway.LastStatsSeen,
-            tag: gateway.Tag,
-            remarks: gateway.Remarks
-        }));
-
+        const gatewayDetails = result.map(gateway => {          
+            return {
+              gatewayId: gateway.gwid,
+              time: gateway.time,
+              ethState: getStateValue(gateway.ethState),
+              lteState: getStateValue(gateway.lteState),
+              temperature: gateway.temperature,
+              powerState: getStateValue(gateway.powerState),
+              batteryState: getStateValue(gateway.batteryState),
+              batteryLevel: gateway.batteryLevel,
+              batteryVoltage: gateway.batteryVoltage,
+              status: gateway.status
+            };
+          });
         res.status(200).json({
             gatewayDetails: gatewayDetails
         });
@@ -37,6 +35,12 @@ exports.getAllGatewaysWithClientId = async (req, res) => {
     }
 };
 
+const getStateValue = (state) => {
+    if (Buffer.isBuffer(state)) {
+      return state.readUInt8(0);
+    }
+    return 0;
+  };
 
 exports.getGatewayDetailsWithClientIdAndGatewayId = async (req, res) => {
     const { clientId, gatewayId } = req.body;
