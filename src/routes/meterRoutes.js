@@ -5,6 +5,6 @@ const router = express.Router();
 const meterController = require('../controllers/MeterController');
 
 router.post('/getAllMetersWithClientIdZoneIdAndDmaId', meterController.getAllMetersWithClientIdZoneIdAndDmaId);
-router.post('/getMeterAnalyticsWithMeterId', meterController.getMeterDetailsWithMeterId);
+router.post('/getMeterDetailsWithMeterId', meterController.getMeterDetailsWithMeterId);
 
 module.exports = router;
