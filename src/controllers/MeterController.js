@@ -75,31 +75,7 @@ async function getMeterAnalytics(clientId, zoneId, dmaId, meterId, fromDate, toD
         minUsagePerDay: firstRow.Minperday,
         maxUsagePerDay: firstRow.MaxperDay,
         avgUsagePerDay: firstRow.AvgperDay,
-        medianUsagePerDay: firstRow.AvgperDay, // Assuming median is the same as average for this example
-        backFlowIndex: [
-          {
-            date: "2024-05-02",
-            value: "5.830"
-          },
-          {
-            date: "2024-05-01",
-            value: "0.990"
-          }
-        ],
-        batteryLife: [
-          {
-            date: "2024-05-03",
-            value: "7 Years"
-          },
-          {
-            date: "2024-05-02",
-            value: "7 Years"
-          },
-          {
-            date: "2024-05-01",
-            value: "7 Years"
-          }
-        ]
+        medianUsagePerDay: firstRow.AvgperDay
       };
 
       const usageDetails = result.map(row => ({
