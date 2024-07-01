@@ -20,7 +20,11 @@ exports.getClientDetails = async (req, res) => {
       createdTime: client.CreatedDateTime,
       meters: client.Meters,
       status: client.Status,
-      snumber: client.SNumber // Ensure this key exists in your stored procedure result
+      snumber: client.SNumber,
+      totalZonesCount: client.TotalZonesCount,
+      totalDMACount: client.TotalDMACount,
+      totalMetersCount: client.TotalMetersCount,
+      imageLink: client.Imagelink // Ensure this key exists in your stored procedure result
     }));
 
     res.status(200).json({
