@@ -1,7 +1,7 @@
 const sequelize = require('../config/db');
 
 exports.getAllMetersWithClientIdZoneIdAndDmaId = async (req, res) => {
-  const { clientId, zoneId, dmaId,startIndex, rowCount } = req.body;
+  const { clientId, zoneId, dmaId, startIndex, rowCount } = req.body;
 
   try {
     const result = await sequelize.query('CALL USP_GetMeterDetails(:clientId, :zoneId, :dmaId, :startIndex, :rowCount)', {
@@ -23,7 +23,10 @@ exports.getAllMetersWithClientIdZoneIdAndDmaId = async (req, res) => {
       remarks: meter.Remarks
     }));
 
+    const totalCount = result[0].totalCount;
+
     res.status(200).json({
+      totalCount: totalCount,
       meters: meterDetails
     });
   } catch (error) {
