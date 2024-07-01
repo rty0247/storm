@@ -6,5 +6,6 @@ const clientController = require('../controllers/ClientController');
 
 router.post('/getAllClients', clientController.getClientDetails);
 router.post('/getTotalCustomerWiseSegementation', clientController.getTotalCustomerWiseSegementation);
+router.post('/getClientAlerts', clientController.getClientAlerts);
 
 module.exports = router;

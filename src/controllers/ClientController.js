@@ -72,3 +72,44 @@ exports.getTotalCustomerWiseSegementation = async (req, res) => {
     });
   }
 };
+
+exports.getClientAlerts = async (req, res) => {
+  const { clientId } = req.body;
+
+  try {
+    // Call the stored procedure
+    const result = await sequelize.query('CALL USP_GetClientAlerts(:clientId)', {
+      replacements: { clientId },
+      type: sequelize.QueryTypes.RAW
+    });
+
+    // Transform the result to match the desired output format
+    const clientAlerts = {};
+    
+    result.forEach(alert => {
+      if (!clientAlerts[alert.DeviceType]) {
+        clientAlerts[alert.DeviceType] = [];
+      }
+      clientAlerts[alert.DeviceType].push({
+        AlertID: alert.AlertID,
+        DeviceType: alert.DeviceType,
+        DeviceID: alert.DeviceID,
+        ClientID: alert.ClientID,
+        AlertStatus: alert.AlertStatus,
+        CreatedAt: alert.CreatedAt,
+        gwid: alert.gwid
+      });
+    });
+
+    res.status(200).json({
+      clientAlerts
+    });
+  } catch (error) {
+    console.error('Error fetching client alerts:', error);
+    res.status(500).json({
+      success: false,
+      message: 'An error occurred while fetching client alerts.',
+      error: error.message
+    });
+  }
+};
