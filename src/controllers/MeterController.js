@@ -23,7 +23,7 @@ exports.getAllMetersWithClientIdZoneIdAndDmaId = async (req, res) => {
       remarks: meter.Remarks
     }));
 
-    const totalCount = result[0].totalCount;
+    const totalCount = result[0].totalCount ?? 0;
 
     res.status(200).json({
       totalCount: totalCount,
