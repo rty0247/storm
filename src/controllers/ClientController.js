@@ -14,7 +14,7 @@ exports.getClientDetails = async (req, res) => {
     // Transform the result to match the desired output format
     const clientDetails = result.map(client => ({
       clientId: client.ClientID,
-      clientName: client.ClientName,
+      clientName: client.ClientName ? client.ClientName.toUpperCase() : null,
       type: client.ClientType,
       region: client.Region,
       createdTime: client.CreatedDateTime,
