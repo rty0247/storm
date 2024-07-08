@@ -10,7 +10,8 @@ exports.getAllZoneDetailsWithClientId = async (req, res) => {
     });
 
     const zoneDetails = result.map(zone => ({
-        zoneId : zone.ZoneID,
+      zoneId : zone.ZoneID,
+      displayName : 'Zone ' + zone.ZoneID,
 	    region : zone.Region,
 	    gatewayId : zone.GatewayID,
 	    lastCommunicationTime : zone.LastCommunicationTime,
@@ -161,6 +162,7 @@ exports.getTotalZoneWiseSegementation = async (req, res) => {
 
     const zoneDetails = result.map(zone => ({
       zoneId : zone.ZoneID,
+      displayName : 'Zone '+zone.ZoneID,
 	    gatewayId : zone.GatewayID,
 	    lastCommunicationTime : zone.LastCommunicationTime,
 	    reading : parseFloat(zone.Reading.toFixed(3)),
