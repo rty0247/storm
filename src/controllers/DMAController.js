@@ -62,6 +62,7 @@ exports.getDMAOutFlowInGateWayDashBoard = async (req, res) => {
 
     const totalDmaOutFlow = result.map(dma => ({
       dmaId: dma.DMAID,
+      displayName: 'DMA '+dma.DMAID,
       name: dma.DMA,
       totalFlow: Math.round(dma.TotalInFlow),
       totalOutFlow: Math.round(dma.TotalOutFlow)
