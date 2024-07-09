@@ -89,51 +89,57 @@ exports.getAllDashboardValues = async (req, res) => {
         });
 
 
+        // const dmaDetails = {
+        //     activeDma: dmaResult[0]?.ActiveDMA || 0,
+        //     inactiveDma: dmaResult[0]?.InActiveDMA || 0,
+        //     faultyDma: dmaResult[0]?.FaultyDAM || 0,
+        //     totalCount: dmaResult[0]?.TotalDMA || 0
+        // };
+
         const dmaDetails = {
-            activeDma: dmaResult[0]?.ActiveDMA || 0,
-            inactiveDma: dmaResult[0]?.InActiveDMA || 0,
-            faultyDma: dmaResult[0]?.FaultyDAM || 0,
-            totalCount: dmaResult[0]?.TotalDMA || 0
-        };
+          activeDma: 50,
+          inactiveDma: 50,
+          faultyDma:  50,
+          totalCount: 150
+      };
 
-      //   const dmaDetails = {
-      //     activeDma: 50,
-      //     inactiveDma: 50,
-      //     faultyDma:  50,
-      //     totalCount: 150
-      // };
-
-        const zoneDetails = {
-            activeZones: zoneResult[0]?.ActiveZone || 0,
-            inactiveZones: zoneResult[0]?.InActiveZone || 0,
-            totalCount: zoneResult[0]?.TotalZone || 0
-        };
-
-    //     const meterDetails = {
-    //       activeMeters: 50,
-    //       inactiveMeters: 50,
-    //       faultyMeters: 50,
-    //       totalCount: 150,
-    //   };
-
-    //   const gatewayDetails = {
-    //     activeGateways: 3,
-    //     inactiveGateways: 3,
-    //     totalCount: 6
-    // };
+        // const zoneDetails = {
+        //     activeZones: zoneResult[0]?.ActiveZone || 0,
+        //     inactiveZones: zoneResult[0]?.InActiveZone || 0,
+        //     totalCount: zoneResult[0]?.TotalZone || 0
+        // };
 
         const meterDetails = {
-            activeMeters: meterResult[0]?.ActiveMeters || 0,
-            inactiveMeters: meterResult[0]?.InActiveMeters || 0,
-            faultyMeters: meterResult[0]?.FaultyMeters || 0,
-            totalCount: meterResult[0]?.TotalMeters || 0,
-        }; 
+          activeMeters: 50,
+          inactiveMeters: 50,
+          faultyMeters: 50,
+          totalCount: 150,
+      };
 
-        const gatewayDetails = {
-            activeGateways: gatewayResult[0]?.ActiveGateway || 0,
-            inactiveGateways: gatewayResult[0]?.InActiveGateway || 0,
-            totalCount: gatewayResult[0]?.TotalGateways || 0
-        };
+      const zoneDetails = {
+        activeZones: 50,
+        inactiveZones: 50,
+        totalCount: 100
+    };
+
+      const gatewayDetails = {
+        activeGateways: 3,
+        inactiveGateways: 3,
+        totalCount: 6
+    };
+
+        // const meterDetails = {
+        //     activeMeters: meterResult[0]?.ActiveMeters || 0,
+        //     inactiveMeters: meterResult[0]?.InActiveMeters || 0,
+        //     faultyMeters: meterResult[0]?.FaultyMeters || 0,
+        //     totalCount: meterResult[0]?.TotalMeters || 0,
+        // }; 
+
+        // const gatewayDetails = {
+        //     activeGateways: gatewayResult[0]?.ActiveGateway || 0,
+        //     inactiveGateways: gatewayResult[0]?.InActiveGateway || 0,
+        //     totalCount: gatewayResult[0]?.TotalGateways || 0
+        // };
 
         res.status(200).json({
             totalZone: zoneDetails,
