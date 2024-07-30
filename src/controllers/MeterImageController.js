@@ -69,7 +69,7 @@ exports.fetchImagesByMeterInfoID = async (req, res) => {
       const images = results.map(row => ({
         MeterImageID: row.MeterImageID,
         MeterInfoID: row.MeterInfoID,
-        ImageUrl: `${baseUrl}/${path.basename(row.ImageUrl)}`
+        ImageUrl: `${baseUrl}/${encodeURIComponent(path.basename(row.ImageUrl))}`
       }));
   
       res.json(images);
