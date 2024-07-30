@@ -4,6 +4,7 @@ const express = require('express');
 const dashboardRoutes = require('./routes/dashboardRoutes');
 const clientRoutes = require('./routes/clientRoutes');
 
+
 const app = express();
 const port = 3000;
 

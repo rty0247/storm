@@ -17,11 +17,12 @@ const zoneRoutes = require('./src/routes/zoneRoutes');
 const dmaRoutes = require('./src/routes/dmaRoutes');
 const meterRoutes = require('./src/routes/meterRoutes');
 const gatewayRoutes = require('./src/routes/gatewayRoutes');
+const imageRoutes = require('./src/routes/imageUploadRoutes')
 
 
 const app = express();
 const port = 3307;
-
+app.use('/uploads', express.static('C:\\Users\\ADMIN\\Desktop\\MeterImages'));
 app.use(cors()); 
 app.use(bodyParser.json());
 app.use('/dashboard', dashboardRoutes);
@@ -33,6 +34,7 @@ app.use('/meters', meterRoutes);
 app.use('/gateways', gatewayRoutes);
 app.use('/postData', lnsPostdata03Routes);
 app.use('/keys', lwKeys02Routes);
+app.use('/images',imageRoutes);
 
 (async () => {
   try {
