@@ -7,7 +7,7 @@ const fs = require('fs');
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, imagePath.IMAGE_PATH);
+    cb(null, imagePath.IMAGE_PATH_SERVER);
   },
   filename: (req, file, cb) => {
     cb(null, file.originalname);
@@ -28,7 +28,7 @@ exports.uploadImages = async (req, res) => {
     }
 
     const values = files.map(file => {
-      const pathImage = path.join(imagePath.IMAGE_PATH, file.filename);
+      const pathImage = path.join(imagePath.IMAGE_PATH_SERVER, file.filename);
       const imageType = file.mimetype;
       const isActive = 1;
       console.log(`Processing file: ${file.filename}, Path: ${pathImage}, Type: ${imageType}`);
