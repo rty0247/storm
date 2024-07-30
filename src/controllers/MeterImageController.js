@@ -66,7 +66,7 @@ exports.fetchImagesByMeterInfoID = async (req, res) => {
       }
   
       const images = await Promise.all(results.map(async row => {
-        const imagePath = path.join(config.IMAGE_PATH, path.basename(row.ImageUrl));
+        const imagePath = path.join(imageConfig.IMAGE_PATH_SERVER, path.basename(row.ImageUrl));
         const imageData = fs.readFileSync(imagePath, 'base64');
         return {
           meterImageID: row.MeterImageID,
