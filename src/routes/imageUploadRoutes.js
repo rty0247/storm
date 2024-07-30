@@ -9,7 +9,7 @@ const router = express.Router();
 // Multer configuration
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, imagePath.IMAGE_PATH_SERVER);
+    cb(null, imagePath.IMAGE_PATH);
   },
   filename: (req, file, cb) => {
     cb(null, file.originalname);

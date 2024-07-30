@@ -7,7 +7,7 @@ const fs = require('fs');
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, imagePath.IMAGE_PATH_SERVER);
+    cb(null, imagePath.IMAGE_PATH);
   },
   filename: (req, file, cb) => {
     cb(null, file.originalname);
@@ -28,11 +28,11 @@ exports.uploadImages = async (req, res) => {
     }
 
     const values = files.map(file => {
-      const imagePath = path.join(imagePath.IMAGE_PATH_SERVER, file.filename);
+      const pathImage = path.join(imagePath.IMAGE_PATH, file.filename);
       const imageType = file.mimetype;
       const isActive = 1;
-      console.log(`Processing file: ${file.filename}, Path: ${imagePath}, Type: ${imageType}`);
-      return [meterInfoID, imagePath, imageType,isActive];
+      console.log(`Processing file: ${file.filename}, Path: ${pathImage}, Type: ${imageType}`);
+      return [meterInfoID, pathImage, imageType,isActive];
     });
 
     const query = 'INSERT INTO MeterImages (MeterInfoID, ImageUrl, ImageType,IsActive) VALUES ?';
