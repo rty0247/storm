@@ -19,7 +19,7 @@ const upload = multer({ storage: storage });
 exports.uploadImages = async (req, res) => {
   try {
     console.log('Starting image upload process...');
-    const meterInfoID = req.body.MeterInfoID || null;
+    const meterInfoID = req.body.meterInfoID || null;
     const files = req.files;
 
     if (!files || files.length === 0) {
@@ -56,7 +56,7 @@ exports.fetchImagesByMeterInfoID = async (req, res) => {
         return res.status(400).send('MeterInfoID is required');
       }
   
-      const query = 'SELECT MeterImageID, MeterInfoID, ImageUrl FROM MeterImages WHERE MeterInfoID = ?';
+      const query = 'SELECT MeterImageID, MeterInfoID, ImageUrl, ImageType FROM MeterImages WHERE MeterInfoID = ?';
       const [results] = await sequelize.query(query, {
         replacements: [meterInfoID]
       });
@@ -65,11 +65,15 @@ exports.fetchImagesByMeterInfoID = async (req, res) => {
         return res.status(404).send('No images found for the given MeterInfoID');
       }
   
-      const baseUrl = `${req.protocol}://${req.get('host')}/uploads`;
-      const images = results.map(row => ({
-        meterImageID: row.MeterImageID,
-        meterInfoID: row.MeterInfoID,
-        imageUrl: `${baseUrl}/${encodeURIComponent(path.basename(row.ImageUrl))}`
+      const images = await Promise.all(results.map(async row => {
+        const imagePath = path.join(config.IMAGE_PATH, path.basename(row.ImageUrl));
+        const imageData = fs.readFileSync(imagePath, 'base64');
+        return {
+          meterImageID: row.MeterImageID,
+          meterInfoID: row.MeterInfoID,
+          imageData: `data:${row.ImageType};base64,${imageData}`,
+          fileName: path.basename(row.ImageUrl)
+        };
       }));
   
       res.json(images);
