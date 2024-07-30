@@ -1,13 +1,13 @@
 const sequelize = require('../config/db');
-const imagePath = require('../config/imageConfig')
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
+const imageConfig = require('../config/imageConfig');
 
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, imagePath.IMAGE_PATH_SERVER);
+    cb(null, imageConfig.IMAGE_PATH_SERVER);
   },
   filename: (req, file, cb) => {
     cb(null, file.originalname);
@@ -28,7 +28,7 @@ exports.uploadImages = async (req, res) => {
     }
 
     const values = files.map(file => {
-      const pathImage = path.join(imagePath.IMAGE_PATH_SERVER, file.filename);
+      const pathImage = path.join(imageConfig.IMAGE_PATH_SERVER, file.filename);
       const imageType = file.mimetype;
       const isActive = 1;
       console.log(`Processing file: ${file.filename}, Path: ${pathImage}, Type: ${imageType}`);
@@ -56,7 +56,7 @@ exports.fetchImagesByMeterInfoID = async (req, res) => {
         return res.status(400).send('MeterInfoID is required');
       }
   
-      const query = 'SELECT MeterImageID, MeterInfoID, ImageUrl FROM MeterImages WHERE MeterInfoID = ? AND IsActive = 1';
+      const query = 'SELECT MeterImageID, MeterInfoID, ImageUrl FROM MeterImages WHERE MeterInfoID = ?';
       const [results] = await sequelize.query(query, {
         replacements: [meterInfoID]
       });
@@ -67,9 +67,9 @@ exports.fetchImagesByMeterInfoID = async (req, res) => {
   
       const baseUrl = `${req.protocol}://${req.get('host')}/uploads`;
       const images = results.map(row => ({
-        MeterImageID: row.MeterImageID,
-        MeterInfoID: row.MeterInfoID,
-        ImageUrl: `${baseUrl}/${encodeURIComponent(path.basename(row.ImageUrl))}`
+        meterImageID: row.MeterImageID,
+        meterInfoID: row.MeterInfoID,
+        imageUrl: `${baseUrl}/${encodeURIComponent(path.basename(row.ImageUrl))}`
       }));
   
       res.json(images);
@@ -78,6 +78,7 @@ exports.fetchImagesByMeterInfoID = async (req, res) => {
       res.status(500).send('Error fetching images');
     }
   };
+  
 
   exports.softDeleteImage = async (req, res) => {
     try {

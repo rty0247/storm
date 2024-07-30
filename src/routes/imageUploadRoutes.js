@@ -1,6 +1,6 @@
 const express = require('express');
 const multer = require('multer');
-const imagePath = require('../config/imageConfig')
+const imageConfig = require('../config/imageConfig');
 const path = require('path');
 const imageController = require('../controllers/MeterImageController');
 
@@ -9,7 +9,7 @@ const router = express.Router();
 // Multer configuration
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, imagePath.IMAGE_PATH_SERVER);
+    cb(null, imageConfig.IMAGE_PATH_SERVER);
   },
   filename: (req, file, cb) => {
     cb(null, file.originalname);
