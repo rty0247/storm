@@ -1,11 +1,11 @@
 const sequelize = require('../config/db');
 
 exports.getAllMetersWithClientIdZoneIdAndDmaId = async (req, res) => {
-  const { clientId, zoneId, dmaId, startIndex, rowCount } = req.body;
+  const { clientId, zoneId, dmaId, gatewayId, startIndex, rowCount } = req.body;
 
   try {
-    const result = await sequelize.query('CALL USP_GetMeterDetails(:clientId, :zoneId, :dmaId, :startIndex, :rowCount)', {
-      replacements: { clientId, zoneId, dmaId, startIndex, rowCount },
+    const result = await sequelize.query('CALL USP_GetMeterDetails(:clientId, :zoneId, :dmaId, :gatewayId, :startIndex, :rowCount)', {
+      replacements: { clientId, zoneId, dmaId, gatewayId, startIndex, rowCount },
       type: sequelize.QueryTypes.RAW
     });
 

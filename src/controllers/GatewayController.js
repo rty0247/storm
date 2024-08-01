@@ -1,11 +1,11 @@
 const sequelize = require('../config/db');
 
 exports.getAllGatewaysWithClientId = async (req, res) => {
-    const { clientId } = req.body;
+    const { clientId, zoneId, dmaId } = req.body;
 
     try {
-        const result = await sequelize.query('CALL USP_GetGatewayDetailsByClient(:clientId)', {
-            replacements: { clientId },
+        const result = await sequelize.query('CALL USP_GetGatewayDetailsByClient(:clientId, :zoneId, :dmaId)', {
+            replacements: { clientId, zoneId, dmaId },
             type: sequelize.QueryTypes.RAW
         });
         const gatewayDetails = result.map(gateway => {          
