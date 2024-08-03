@@ -74,11 +74,18 @@ async function getMeterAnalytics(clientId, zoneId, dmaId, meterId, fromDate, toD
     if (result && result.length > 0) {
       const firstRow = result[0];
 
+      // const extendedSummary = {
+      //   minUsagePerDay: firstRow.Minperday,
+      //   maxUsagePerDay: firstRow.MaxperDay,
+      //   avgUsagePerDay: firstRow.AvgperDay,
+      //   medianUsagePerDay: firstRow.AvgperDay
+      // };
+
       const extendedSummary = {
-        minUsagePerDay: firstRow.Minperday,
-        maxUsagePerDay: firstRow.MaxperDay,
-        avgUsagePerDay: firstRow.AvgperDay,
-        medianUsagePerDay: firstRow.AvgperDay
+        minUsagePerDay: 25.75,
+        maxUsagePerDay: 35.55,
+        avgUsagePerDay: 65.24,
+        medianUsagePerDay: 96.64
       };
 
       const usageDetails = result.map(row => ({

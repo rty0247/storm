@@ -8,6 +8,9 @@ const dashboardController = require('../controllers/DashboardController');
 
 router.post('/createUser', userController.createUser);
 router.post('/login', userController.loginUser);
+router.post('/validateOtp', userController.verifyOtp);
+router.post('/requestOtpForPasswordReset', userController.requestOtpForPasswordReset);
+router.post('/resetPassword', userController.resetPassword);
 router.post('/getTotalOutflowInDashboard', dashboardController.getTotalOutflow);
 router.post('/getAllDashboardValues', dashboardController.getAllDashboardValues);
 router.post('/getTotalConsumptionInClientDashboard', dashboardController.getTotalConsumptionInClientDashboard);
