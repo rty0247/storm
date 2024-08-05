@@ -105,3 +105,38 @@ exports.getGatewayDetailsWithClientIdAndGatewayId = async (req, res) => {
         });
     }
 };
+
+exports.getGatewayCountsInGatewayDashboard = async (req, res) => {
+    const { clientId } = req.body;
+
+    try {
+        // const result = await sequelize.query('CALL USP_GetGatewayDetailsByClient(:clientId, :zoneId, :dmaId)', {
+        //     replacements: { clientId, zoneId, dmaId },
+        //     type: sequelize.QueryTypes.RAW
+        // });
+        // const gatewayCount = result.map(gateway => {          
+        //     return {
+        //       totalGateways: 6,
+        //       activeGateways: 4,
+        //       inactiveGateways: 2,
+        //       totalCansCommunicatedToday: 369
+        //     };
+        //   });
+        const gatewayCount = {  
+              totalGateways: 6,
+              activeGateways: 4,
+              inactiveGateways: 2,
+              totalCansCommunicatedToday: 369
+            };
+        res.status(200).json({
+            gatewayCount: gatewayCount
+        });
+    } catch (error) {
+        console.error('Error fetching client details:', error);
+        res.status(500).json({
+            success: false,
+            message: 'An error occurred while fetching client details.',
+            error: error.message
+        });
+    }
+};

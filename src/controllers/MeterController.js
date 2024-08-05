@@ -90,7 +90,8 @@ async function getMeterAnalytics(clientId, zoneId, dmaId, meterId, fromDate, toD
 
       const usageDetails = result.map(row => ({
         date: row.ReadingDate,
-        value: row.Reading
+        //value: row.Reading
+        value: 55.55
       }));
 
       return {

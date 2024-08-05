@@ -4,5 +4,6 @@ const gatewayController = require('../controllers/GatewayController');
 
 router.post('/getAllGatewaysWithClientId', gatewayController.getAllGatewaysWithClientId);
 router.post('/getGatewayDetailsWithClientIdAndGatewayId', gatewayController.getGatewayDetailsWithClientIdAndGatewayId);
+router.post('/getGatewayCountsInGatewayDashboard', gatewayController.getGatewayCountsInGatewayDashboard);
 
 module.exports = router;
