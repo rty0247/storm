@@ -4,12 +4,12 @@ const sequelize = require('../config/db');
 const nodemailer = require('nodemailer');
 const { CLIENT_RENEG_LIMIT } = require('tls');
 require('dotenv').config({ path: './src/.env' });
-const {
-    generateOtp,
-    sendOtp,
-    updateOtpInDatabase,
-    validateOtp,
-} = require('./OtpUtils');
+// const {
+//     generateOtp,
+//     sendOtp,
+//     updateOtpInDatabase,
+//     validateOtp,
+// } = require('./OtpUtils');
 
 exports.createUser = async (req, res) => {
     try {
@@ -50,78 +50,78 @@ exports.loginUser = async (req, res) => {
             return res.status(401).send({ message: 'Invalid email or password' });
         }
 
-        const otp = generateOtp();
+        // const otp = generateOtp();
 
-        // Send OTP and update database
-        await Promise.all([
-            sendOtp(email, otp),
-            updateOtpInDatabase(email, otp)
-        ]);
-
-        res.status(200).send({ message: 'Login successful. OTP has been sent to your email.' });
+        // // Send OTP and update database
+        // await Promise.all([
+        //     sendOtp(email, otp),
+        //     updateOtpInDatabase(email, otp)
+        // ]);
+        res.status(200).send({ message: 'Login successful' });
+        // res.status(200).send({ message: 'Login successful. OTP has been sent to your email.' });
     } catch (error) {
         console.error(error);
         res.status(500).send({ message: 'Server error' });
     }
 };
 
-exports.requestOtpForPasswordReset = async (req, res) => {
-    try {
-        const { email } = req.body;
+// exports.requestOtpForPasswordReset = async (req, res) => {
+//     try {
+//         const { email } = req.body;
 
-        // Check if user exists
-        const [rows] = await sequelize.query('SELECT * FROM users WHERE email_id = ?', { replacements: [email] });
-        if (rows.length === 0) {
-            return res.status(404).send({ message: 'User not found' });
-        }
+//         // Check if user exists
+//         const [rows] = await sequelize.query('SELECT * FROM users WHERE email_id = ?', { replacements: [email] });
+//         if (rows.length === 0) {
+//             return res.status(404).send({ message: 'User not found' });
+//         }
 
-        const otp = generateOtp();
+//         const otp = generateOtp();
 
-        // Send OTP and update database
-        await Promise.all([
-            sendOtp(email, otp),
-            updateOtpInDatabase(email, otp)
-        ]);
+//         // Send OTP and update database
+//         await Promise.all([
+//             sendOtp(email, otp),
+//             updateOtpInDatabase(email, otp)
+//         ]);
 
-        res.status(200).send({ message: 'OTP has been sent to your email.' });
-    } catch (error) {
-        console.error(error);
-        res.status(500).send({ message: 'Server error' });
-    }
-};
+//         res.status(200).send({ message: 'OTP has been sent to your email.' });
+//     } catch (error) {
+//         console.error(error);
+//         res.status(500).send({ message: 'Server error' });
+//     }
+// };
 
-exports.verifyOtp = async (req, res) => {
-    try {
-        const { email, otp } = req.body;
+// exports.verifyOtp = async (req, res) => {
+//     try {
+//         const { email, otp } = req.body;
 
-        const validation = await validateOtp(email, otp);
-        if (!validation.valid) {
-            return res.status(400).send({ message: validation.message });
-        }
+//         const validation = await validateOtp(email, otp);
+//         if (!validation.valid) {
+//             return res.status(400).send({ message: validation.message });
+//         }
 
-        res.status(200).send({ message: 'OTP is valid' });
-    } catch (error) {
-        console.error(error);
-        res.status(500).send({ message: 'Server error' });
-    }
-};
+//         res.status(200).send({ message: 'OTP is valid' });
+//     } catch (error) {
+//         console.error(error);
+//         res.status(500).send({ message: 'Server error' });
+//     }
+// };
 
-exports.resetPassword = async (req, res) => {
-    try {
-        const { email, password } = req.body;
+// exports.resetPassword = async (req, res) => {
+//     try {
+//         const { email, password } = req.body;
 
-        // Hash the new password
-        const hashedPassword = await bcrypt.hash(password, 10);
+//         // Hash the new password
+//         const hashedPassword = await bcrypt.hash(password, 10);
 
-        // Update the password in the database
-        await sequelize.query(
-            'UPDATE users SET hashed_password = ?, otp = NULL, otp_created_at = NULL WHERE email_id = ?',
-            { replacements: [hashedPassword, email] }
-        );
+//         // Update the password in the database
+//         await sequelize.query(
+//             'UPDATE users SET hashed_password = ?, otp = NULL, otp_created_at = NULL WHERE email_id = ?',
+//             { replacements: [hashedPassword, email] }
+//         );
 
-        res.status(200).send({ message: 'Password has been reset successfully' });
-    } catch (error) {
-        console.error(error);
-        res.status(500).send({ message: 'Server error' });
-    }
-};
+//         res.status(200).send({ message: 'Password has been reset successfully' });
+//     } catch (error) {
+//         console.error(error);
+//         res.status(500).send({ message: 'Server error' });
+//     }
+// };
