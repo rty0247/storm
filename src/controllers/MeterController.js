@@ -10,6 +10,7 @@ exports.getAllMetersWithClientIdZoneIdAndDmaId = async (req, res) => {
     });
 
     const meterDetails = result.map(meter => ({
+      canNo: meter.can,
       meterId: meter.MeterID,
       gatewayId: meter.GatewayID,
       deveui: meter.DEVEUI,
