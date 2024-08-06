@@ -55,7 +55,7 @@ exports.fetchImagesByMeterInfoID = async (req, res) => {
       return res.status(400).json({ status: 'error', message: 'MeterInfoID is required.' });
     }
 
-    const query = 'SELECT MeterImageID, MeterInfoID, ImageUrl, ImageType FROM MeterImages WHERE MeterInfoID = ? AND IsActive = ?';
+    const query = 'SELECT MeterImageID, MeterInfoID, ImageUrl, ImageType FROM MeterImages WHERE MeterInfoID = ? AND IsActive = 1';
     const [results] = await sequelize.query(query, {
       replacements: [meterInfoID]
     });
