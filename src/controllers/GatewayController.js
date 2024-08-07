@@ -106,36 +106,40 @@ exports.getGatewayDetailsWithClientIdAndGatewayId = async (req, res) => {
     }
 };
 
+
 exports.getGatewayCountsInGatewayDashboard = async (req, res) => {
     const { clientId } = req.body;
+    const fromDate = req.query.fromDate || '2024-06-01';
+    const toDate = req.query.toDate || '2024-06-30';
+
+    if (!clientId) {
+        return res.status(400).json({
+            success: false,
+            message: 'Client ID is required.'
+        });
+    }
 
     try {
-        // const result = await sequelize.query('CALL USP_GetGatewayDetailsByClient(:clientId, :zoneId, :dmaId)', {
-        //     replacements: { clientId, zoneId, dmaId },
-        //     type: sequelize.QueryTypes.RAW
-        // });
-        // const gatewayCount = result.map(gateway => {          
-        //     return {
-        //       totalGateways: 6,
-        //       activeGateways: 4,
-        //       inactiveGateways: 2,
-        //       totalCansCommunicatedToday: 369
-        //     };
-        //   });
-        const gatewayCount = {  
-              totalGateways: 6,
-              activeGateways: 4,
-              inactiveGateways: 2,
-              totalCansCommunicatedToday: 369
-            };
+        const result = await sequelize.query('call USP_GetGatewayCountByClient(:clientId, :fromDate, :toDate)', {
+            replacements: { clientId, fromDate, toDate },
+            type: sequelize.QueryTypes.RAW
+        });
+
+        const gatewayCount = {
+            totalGateways: result[0].TotalGateways || 0,
+            activeGateways: result[0].ActiveGateway || 0,
+            inactiveGateways: result[0].InActiveGateway || 0,
+            totalCansCommunicatedToday: result[0].CansCommunicated || 0
+        };
+
         res.status(200).json({
             gatewayCount: gatewayCount
         });
     } catch (error) {
-        console.error('Error fetching client details:', error);
+        console.error('Error fetching gateway counts:', error);
         res.status(500).json({
             success: false,
-            message: 'An error occurred while fetching client details.',
+            message: 'An error occurred while fetching gateway counts.',
             error: error.message
         });
     }
