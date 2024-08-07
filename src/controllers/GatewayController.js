@@ -144,3 +144,30 @@ exports.getGatewayCountsInGatewayDashboard = async (req, res) => {
         });
     }
 };
+
+exports.getAllGatewaysForDropdown = async (req, res) => {
+    const { clientId, zoneId, dmaId } = req.body;
+
+    try {
+        const result = await sequelize.query('CALL USP_GetAllGatewaysWithClientIdZoneIdAndDMAId(:clientId, :zoneId, :dmaId)', {
+            replacements: { clientId, zoneId, dmaId },
+            type: sequelize.QueryTypes.RAW
+        });
+        const gatewayDetails = result.map(gateway => {          
+            return {
+              id: gateway.ID,
+              displayName: gateway.gwid,
+            };
+          });
+        res.status(200).json({
+            gatewayDetails: gatewayDetails
+        });
+    } catch (error) {
+        console.error('Error fetching gateway details:', error);
+        res.status(500).json({
+            success: false,
+            message: 'An error occurred while fetching gateway details.',
+            error: error.message
+        });
+    }
+};
