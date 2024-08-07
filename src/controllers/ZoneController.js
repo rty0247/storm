@@ -216,3 +216,30 @@ exports.getTotalZoneWiseSegementation = async (req, res) => {
     });
   }
 };
+
+exports.getAllZonesForDropdown = async (req, res) => {
+  const { clientId } = req.body;
+
+  try {
+    const result = await sequelize.query('CALL USP_GetAllZones(:clientId)', {
+      replacements: { clientId },
+      type: sequelize.QueryTypes.RAW
+    });
+
+    const zoneDetails = result.map(zone => ({
+      zoneId : zone.ZoneID,
+      displayName : zone.ZoneDisplayName
+    }));
+
+    res.status(200).json({
+      zonesList: zoneDetails
+    });
+  } catch (error) {
+    console.error('Error fetching zone details:', error);
+    res.status(500).json({
+      success: false,
+      message: 'An error occurred while fetching zone details.',
+      error: error.message
+    });
+  }
+};

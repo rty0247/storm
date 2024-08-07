@@ -8,5 +8,6 @@ router.post('/getAllZoneDetailsWithClientId', zoneController.getAllZoneDetailsWi
 router.post('/getZoneWiseConsumptionInClientDashboard', zoneController.getZoneWiseConsumptionInClientDashboard);
 router.post('/getDayWiseZoneConsumptionInClientDashboard', zoneController.getDayWiseZoneConsumptionInClientDashboard);
 router.post('/getTotalZoneWiseSegementation', zoneController.getTotalZoneWiseSegementation);
+router.post('/getAllZonesForDropdown', zoneController.getAllZonesForDropdown);
 
 module.exports = router;
