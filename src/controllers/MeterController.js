@@ -1,11 +1,11 @@
 const sequelize = require('../config/db');
 
 exports.getAllMetersWithClientIdZoneIdAndDmaId = async (req, res) => {
-  const { clientId, zoneId, dmaId, gatewayId, startIndex, rowCount } = req.body;
+  const { status, clientId, zoneId, dmaId, gatewayId, startIndex, rowCount } = req.body;
 
   try {
-    const result = await sequelize.query('CALL USP_GetMeterDetails(:clientId, :zoneId, :dmaId, :gatewayId, :startIndex, :rowCount)', {
-      replacements: { clientId, zoneId, dmaId, gatewayId, startIndex, rowCount },
+    const result = await sequelize.query('CALL USP_GetMeterDetails(:status, :clientId, :zoneId, :dmaId, :gatewayId, :startIndex, :rowCount)', {
+      replacements: { status, clientId, zoneId, dmaId, gatewayId, startIndex, rowCount },
       type: sequelize.QueryTypes.RAW
     });
 
@@ -39,8 +39,6 @@ exports.getAllMetersWithClientIdZoneIdAndDmaId = async (req, res) => {
     });
   }
 };
-
-
 
 exports.getMeterDetailsWithMeterId = async (req, res) => { 
   const { clientId, zoneId, dmaId, meterId, fromDate, toDate } = req.body;
@@ -140,7 +138,6 @@ async function getMeterAnalytics(clientId, zoneId, dmaId, meterId, fromDate, toD
     throw new Error('An error occurred while fetching Meter details.');
   }
 }
-
 
 async function getMeterDetails(clientId, zoneId, dmaId, meterId) {
   try {

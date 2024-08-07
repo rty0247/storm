@@ -41,7 +41,7 @@ const getStateValue = (state) => {
       return state.readUInt8(0);
     }
     return 0;
-  };
+};
 
 exports.getGatewayDetailsWithClientIdAndGatewayId = async (req, res) => {
     const { clientId, gatewayId } = req.body;
@@ -105,7 +105,6 @@ exports.getGatewayDetailsWithClientIdAndGatewayId = async (req, res) => {
         });
     }
 };
-
 
 exports.getGatewayCountsInGatewayDashboard = async (req, res) => {
     const { clientId } = req.body;
