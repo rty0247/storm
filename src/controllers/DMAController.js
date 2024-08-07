@@ -10,15 +10,14 @@ exports.getAllDMAsWithClientIdAndZoneId = async (req, res) => {
     });
 
     const dmaDetails = result.map(dma => ({
-      dmaId : dma.ZoneID,
-      displayName : 'DMA '+ dma.ZoneID,
+      dmaId : dma.DMAID,
+      displayName : 'DMA '+ dma.DMAID,
 	    region : dma.Region,
 	    gatewayId : dma.GatewayID,
 	    lastCommunicationTime : dma.LastCommunicationTime,
 	    reading : dma.Reading,
-      dmas: dma.DMA,
 	    meters : dma.Meters,
-	    status : dma.Status
+	    status : dma.STATUS
     }));
 
     res.status(200).json({

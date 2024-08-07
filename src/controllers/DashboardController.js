@@ -96,37 +96,11 @@ exports.getAllDashboardValues = async (req, res) => {
             totalCount: dmaResult[0]?.TotalDMA || 0
         };
 
-      //   const dmaDetails = {
-      //     activeDma: 50,
-      //     inactiveDma: 50,
-      //     faultyDma:  50,
-      //     totalCount: 150
-      // };
-
         const zoneDetails = {
             activeZones: zoneResult[0]?.ActiveZone || 0,
             inactiveZones: zoneResult[0]?.InActiveZone || 0,
             totalCount: zoneResult[0]?.TotalZone || 0
         };
-
-    //     const meterDetails = {
-    //       activeMeters: 50,
-    //       inactiveMeters: 50,
-    //       faultyMeters: 50,
-    //       totalCount: 150,
-    //   };
-
-    //   const zoneDetails = {
-    //     activeZones: 50,
-    //     inactiveZones: 50,
-    //     totalCount: 100
-    // };
-
-    //   const gatewayDetails = {
-    //     activeGateways: 3,
-    //     inactiveGateways: 3,
-    //     totalCount: 6
-    // };
 
         const meterDetails = {
             activeMeters: meterResult[0]?.ActiveMeters || 0,
