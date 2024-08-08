@@ -71,8 +71,9 @@ exports.getDMAOutFlowInGateWayDashBoard = async (req, res) => {
 
     res.status(200).json({
       minRange: 0,
-      maxRange: roundedCount,
-      difference: diff,
+      //maxRange: roundedCount,
+      maxRange: 100000,
+      difference: 20000,
       totalDmaOutFlow: totalDmaOutFlow
     });
 
