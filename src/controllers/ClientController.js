@@ -73,6 +73,10 @@ exports.getTotalCustomerWiseSegementation = async (req, res) => {
   }
 };
 
+const convertTimestamp = (stamp) => {
+  return stamp.replace('T', ' ').split('.')[0];
+};
+
 exports.getClientAlerts = async (req, res) => {
   const { clientId } = req.body;
 
@@ -96,7 +100,7 @@ exports.getClientAlerts = async (req, res) => {
         DeviceID: alert.DeviceID,
         ClientID: alert.ClientID,
         AlertStatus: alert.AlertStatus,
-        CreatedAt: alert.CreatedAt,
+        CreatedAt: convertTimestamp(alert.CreatedAt.toISOString()),
         gwid: alert.gwid
       });
     });
