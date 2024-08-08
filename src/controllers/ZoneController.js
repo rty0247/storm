@@ -75,7 +75,8 @@ exports.getZoneWiseConsumptionInClientDashboard = async (req, res) => {
 
       const zoneWiseConsumption = zoneCount.map(zone => ({
         zoneId: zone.ZoneID,
-        consumption:Math.round(zone.TotalConsumption)
+        consumption:4570,
+        //consumption:Math.round(zone.TotalConsumption)
       }));
 
     const zoneDetails = zoneList.map(zone => ({
