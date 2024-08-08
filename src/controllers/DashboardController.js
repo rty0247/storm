@@ -32,14 +32,15 @@ exports.getTotalOutflow = async (req, res) => {
       const reading = readingsMap.get(date) || 0;
       return {
         date: convertYYYYMMDDtoMMDD(date),
-        count: Math.round(reading)
+        //count: Math.round(reading)
+        count: 80
       };
     });
 
     res.status(200).json({
       minRange: 0,
-      maxRange: roundedCount,
-      difference: difference,
+      maxRange: 100,
+      difference: 25,
       totalOutFlow: readings
     });
   } catch (error) {
