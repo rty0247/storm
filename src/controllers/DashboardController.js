@@ -157,7 +157,10 @@ exports.getAllDashboardValues = async (req, res) => {
         });
     }
 };
-
+function roundToPlaces(num, decimalPlaces) {
+  const factor = Math.pow(10, decimalPlaces);
+  return Math.round(num * factor) / factor;
+}
 exports.getTotalConsumptionInClientDashboard = async (req, res) => {
   const { clientId, zoneId, fromDate, toDate } = req.body;
 
@@ -176,14 +179,14 @@ exports.getTotalConsumptionInClientDashboard = async (req, res) => {
       });
 
       const inFlowDetails = {
-        count : totalInFlow,
+        count : roundToPlaces(totalInFlow/1000, 2),
         label : "In Flow",
         lastWeekPercentage : "7",
         action : "increased"
       };
 
       const consumptionDetails = {
-        count : totalOutFlow,
+        count : roundToPlaces(totalOutFlow/1000, 2),
         label : "Consumption",
         lastWeekPercentage : "7",
         action : "decreased"
@@ -191,8 +194,8 @@ exports.getTotalConsumptionInClientDashboard = async (req, res) => {
 
       const dmaDetails = result.map(dma => ({
         date : dma.ReadingDate,
-        inflow : parseFloat(dma.TotalInFlow) || 0,
-        consumption : parseFloat(dma.TotalOutFlow) || 0
+        inflow : roundToPlaces(parseFloat(dma.TotalInFlow)/1000, 2) || 0,
+        consumption : roundToPlaces(parseFloat(dma.TotalOutFlow)/1000, 2) || 0
       }));
 
 
