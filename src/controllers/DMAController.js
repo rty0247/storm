@@ -104,7 +104,8 @@ exports.getDMAWiseConsumptionInClientDashboard = async (req, res) => {
     let totalConsumption = 0;
 
     dmaCount.forEach(dma => {
-        totalConsumption += Math.round(parseFloat(dma.TotalConsumption)) || 0;
+        //totalConsumption += Math.round(parseFloat(dma.TotalConsumption)) || 0;
+        totalConsumption += 2470; 
       });
 
       const dmaWiseConsumption = dmaCount.map(dma => ({

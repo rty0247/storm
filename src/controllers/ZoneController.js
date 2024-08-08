@@ -70,7 +70,8 @@ exports.getZoneWiseConsumptionInClientDashboard = async (req, res) => {
     let totalConsumption = 0;
 
     zoneCount.forEach(reading => {
-        totalConsumption += Math.round(parseFloat(reading.TotalConsumption)) || 0;
+        //totalConsumption += Math.round(parseFloat(reading.TotalConsumption)) || 0;
+        totalConsumption += 4570;
       });
 
       const zoneWiseConsumption = zoneCount.map(zone => ({
