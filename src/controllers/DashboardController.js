@@ -259,7 +259,6 @@ exports.getTotalConsumptionInClientDashboard = async (req, res) => {
     // Ensure each date in the range has a reading
     const dmaDetails = dates.map(date => {
       const reading = readingsMap.get(date) || { inflow: 0, outflow: 0 };
-      console.log(date, 'DAte')
       return {
         date: convertYYYYMMDDtoMMDD(date),
         inflow: roundToPlaces(reading.inflow / 1000, 2),

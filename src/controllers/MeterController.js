@@ -9,6 +9,7 @@ exports.getAllMetersWithClientIdZoneIdAndDmaId = async (req, res) => {
       type: sequelize.QueryTypes.RAW
     });
 
+    const totalCount = result.length;
     const meterDetails = result.map(meter => ({
       canNo: meter.can || '000000',
       meterId: meter.MeterID,
@@ -22,9 +23,10 @@ exports.getAllMetersWithClientIdZoneIdAndDmaId = async (req, res) => {
       status: meter.status,
       batteryLife: meter.BatteryLife,
       remarks: meter.Remarks
+      
     }));
 
-    const totalCount = result?.[0]?.totalCount ?? 0;
+    // const totalCount = result?.[0]?.totalCount ?? 0;
 
     res.status(200).json({
       totalCount: totalCount,
