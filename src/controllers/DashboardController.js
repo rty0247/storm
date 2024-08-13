@@ -162,59 +162,71 @@ function roundToPlaces(num, decimalPlaces) {
   return Math.round(num * factor) / factor;
 }
 
-exports.getTotalConsumptionInClientDashboard = async (req, res) => {
-  const { clientId, zoneId, fromDate, toDate } = req.body;
 
-  try {
-      const result = await sequelize.query('CALL USP_GetTotalConsumptionKPI(:clientId, :zoneId, :fromDate, :toDate)', {
-          replacements: { clientId, zoneId, fromDate, toDate },
-          type: sequelize.QueryTypes.RAW
-      });
+// exports.getTotalConsumptionInClientDashboard = async (req, res) => {
+//   const { clientId, zoneId, fromDate, toDate } = req.body;
 
-      
-      let totalInFlow = 0;
-      let totalOutFlow = 0; 
+//   try {
+//     // Call the stored procedure
+//     const result = await sequelize.query('CALL USP_GetTotalConsumptionKPI(:clientId, :zoneId, :fromDate, :toDate)', {
+//       replacements: { clientId, zoneId, fromDate, toDate },
+//       type: sequelize.QueryTypes.RAW
+//     });
 
-      result.forEach(reading => {
-        totalInFlow += parseFloat(reading.TotalInFlow) || 0;
-        totalOutFlow += parseFloat(reading.TotalOutFlow) || 0;
-      });
+//     const dates = getDatesBetween(fromDate, toDate);
+//     let totalInFlow = 0;
+//     let totalOutFlow = 0; 
+//     const readingsMap = new Map();
 
-      const inFlowDetails = {
-        count : roundToPlaces(totalInFlow/1000, 2),
-        label : "In Flow",
-        lastWeekPercentage : "7",
-        action : "increased"
-      };
+//     // Sum readings and store them in a map
+//     result.forEach(reading => {
+//       totalInFlow += parseFloat(reading.TotalInFlow) || 0;
+//       totalOutFlow += parseFloat(reading.TotalOutFlow) || 0;
 
-      const consumptionDetails = {
-        count : roundToPlaces(totalOutFlow/1000, 2),
-        label : "Consumption",
-        lastWeekPercentage : "7",
-        action : "decreased"
-      };
+//       readingsMap.set(reading.ReadingDate, {
+//         inflow: parseFloat(reading.TotalInFlow) || 0,
+//         outflow: parseFloat(reading.TotalOutFlow) || 0
+//       });
+//     });
 
-      const dmaDetails = result.map(dma => ({
-        date : dma.ReadingDate,
-        inflow : roundToPlaces(parseFloat(dma.TotalInFlow)/1000, 2) || 0,
-        consumption : roundToPlaces(parseFloat(dma.TotalOutFlow)/1000, 2) || 0
-      }));
+//     const inFlowDetails = {
+//       count: roundToPlaces(totalInFlow / 1000, 2),
+//       label: "In Flow",
+//       lastWeekPercentage: "7",
+//       action: "increased"
+//     };
 
+//     const consumptionDetails = {
+//       count: roundToPlaces(totalOutFlow / 1000, 2),
+//       label: "Consumption",
+//       lastWeekPercentage: "7",
+//       action: "decreased"
+//     };
 
-      res.status(200).json({
-        inFlowDetails: inFlowDetails,
-        consumptionDetails: consumptionDetails,
-        totalConsumption: dmaDetails
-      });
-  } catch (error) {
-      console.error('Error fetching values :', error);
-      res.status(500).json({
-          success: false,
-          message: 'An error occurred while fetching total consumption values.',
-          error: error.message
-      });
-  }
-};
+//     // Ensure each date in the range has a reading
+//     const dmaDetails = dates.map(date => {
+//       const reading = readingsMap.get(date) || { inflow: 0, outflow: 0 };
+//       return {
+//         date: convertYYYYMMDDtoMMDD(date),
+//         inflow: roundToPlaces(reading.inflow / 1000, 2),
+//         consumption: roundToPlaces(reading.outflow / 1000, 2)
+//       };
+//     });
+
+//     res.status(200).json({
+//       inFlowDetails,
+//       consumptionDetails,
+//       totalConsumption: dmaDetails
+//     });
+//   } catch (error) {
+//     console.error('Error fetching values:', error);
+//     res.status(500).json({
+//       success: false,
+//       message: 'An error occurred while fetching total consumption values.',
+//       error: error.message
+//     });
+//   }
+// };
 
 exports.getTotalConsumptionInClientDashboard = async (req, res) => {
   const { clientId, zoneId, fromDate, toDate } = req.body;
@@ -228,19 +240,30 @@ exports.getTotalConsumptionInClientDashboard = async (req, res) => {
 
     const dates = getDatesBetween(fromDate, toDate);
     let totalInFlow = 0;
-    let totalOutFlow = 0; 
+    let totalOutFlow = 0;
+    let maxValue = 0; // Initialize the maximum value
     const readingsMap = new Map();
 
     // Sum readings and store them in a map
     result.forEach(reading => {
-      totalInFlow += parseFloat(reading.TotalInFlow) || 0;
-      totalOutFlow += parseFloat(reading.TotalOutFlow) || 0;
+      const inflow = parseFloat(reading.TotalInFlow) || 0;
+      const outflow = parseFloat(reading.TotalOutFlow) || 0;
+
+      totalInFlow += inflow;
+      totalOutFlow += outflow;
+
+      // Check if the current reading has a higher value than the current maxValue
+      maxValue = Math.max(maxValue, inflow, outflow);
 
       readingsMap.set(reading.ReadingDate, {
-        inflow: parseFloat(reading.TotalInFlow) || 0,
-        outflow: parseFloat(reading.TotalOutFlow) || 0
+        inflow,
+        outflow
       });
     });
+
+    // Math.ceil the maxValue to round it up to the nearest integer
+    maxValue = Math.ceil(maxValue / 500) * 500;
+
 
     const inFlowDetails = {
       count: roundToPlaces(totalInFlow / 1000, 2),
@@ -267,8 +290,11 @@ exports.getTotalConsumptionInClientDashboard = async (req, res) => {
     });
 
     res.status(200).json({
+      maxValue: maxValue !== 0 ? maxValue : 100,
+      minValue: 0,
       inFlowDetails,
       consumptionDetails,
+       // Returning the maxValue as the highest inflow/outflow value
       totalConsumption: dmaDetails
     });
   } catch (error) {
@@ -280,6 +306,7 @@ exports.getTotalConsumptionInClientDashboard = async (req, res) => {
     });
   }
 };
+
 
 function convertYYYYMMDDtoMMDD(dateString) {
   // Split the date string into an array
