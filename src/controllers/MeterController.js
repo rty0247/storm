@@ -9,7 +9,6 @@ exports.getAllMetersWithClientIdZoneIdAndDmaId = async (req, res) => {
       type: sequelize.QueryTypes.RAW
     });
 
-    // const totalCount = result.length;
     const meterDetails = result.map(meter => ({
       canNo: meter.can || '000000',
       meterId: meter.MeterID,
@@ -79,25 +78,21 @@ async function getMeterAnalytics(clientId, zoneId, dmaId, meterId, fromDate, toD
       const firstRow = result[0];
 
       const extendedSummary = {
-        minUsagePerDay: firstRow.Minperday || 25.75,
-        maxUsagePerDay: firstRow.MaxperDay || 35.55,
-        avgUsagePerDay: firstRow.AvgperDay || 65.24,
-        medianUsagePerDay: firstRow.AvgperDay || 96.64
+        minUsagePerDay: firstRow.Minperday || 0,
+        maxUsagePerDay: firstRow.MaxperDay || 0,
+        avgUsagePerDay: firstRow.AvgperDay || 0,
+        medianUsagePerDay: firstRow.AvgperDay || 0
       };
 
       result.forEach(row => {
-        usageMap.set(row.ReadingDate, row.Reading || 55.55);
+        usageMap.set(row.ReadingDate, row.Reading || 0);
       });
-
-      // result.forEach(row => {
-      //   usageMap.set(row.ReadingDate, 55.55);
-      // });
 
       const usageDetails = dates.map(date => {
         const reading = usageMap.get(date) || 0;
         return {
           date: convertYYYYMMDDtoMMDD(date),
-          value: 55.55
+          value: reading
         };
       });
 
@@ -124,10 +119,10 @@ async function getMeterAnalytics(clientId, zoneId, dmaId, meterId, fromDate, toD
 
       return {
         extendedSummary: {
-          minUsagePerDay: 25.75,
-          maxUsagePerDay: 35.55,
-          avgUsagePerDay: 65.24,
-          medianUsagePerDay: 96.64
+          minUsagePerDay: 0,
+          maxUsagePerDay: 0,
+          avgUsagePerDay: 0,
+          medianUsagePerDay: 0
         },
         usage: usageDetails,
         minUsage,

@@ -63,17 +63,14 @@ exports.getDMAOutFlowInGateWayDashBoard = async (req, res) => {
       dmaId: dma.DMAID,
       displayName: 'DMA '+dma.DMAID,
       name: dma.DMA,
-      // totalFlow: Math.round(dma.TotalInFlow),
-      // totalOutFlow: Math.round(dma.TotalOutFlow)
-      totalFlow: 70000,
-      totalOutFlow: 60000
+      totalFlow: Math.round(dma.TotalInFlow),
+      totalOutFlow: Math.round(dma.TotalOutFlow)
     }));
 
     res.status(200).json({
       minRange: 0,
-      //maxRange: roundedCount,
-      maxRange: 100000,
-      difference: 20000,
+      maxRange: roundedCount,
+      difference: roundedCount/5,
       totalDmaOutFlow: totalDmaOutFlow
     });
 
@@ -104,14 +101,12 @@ exports.getDMAWiseConsumptionInClientDashboard = async (req, res) => {
     let totalConsumption = 0;
 
     dmaCount.forEach(dma => {
-        //totalConsumption += Math.round(parseFloat(dma.TotalConsumption)) || 0;
-        totalConsumption += 2470; 
+        totalConsumption += Math.round(parseFloat(dma.TotalConsumption)) || 0; 
       });
 
       const dmaWiseConsumption = dmaCount.map(dma => ({
         dmaId: dma.DMAID,
-        consumption: 2470,
-        //consumption:Math.round(dma.TotalConsumption)
+        consumption:Math.round(dma.TotalConsumption)
       }));
 
       const dmaDetails = dmaList.map(dma => ({
