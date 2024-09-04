@@ -33,6 +33,11 @@ exports.getAllDMAsWithClientIdAndZoneId = async (req, res) => {
   }
 };
 
+function roundToPlaces(num, decimalPlaces) {
+  const factor = Math.pow(10, decimalPlaces);
+  return Math.round(num * factor) / factor;
+}
+
 exports.getDMAOutFlowInGateWayDashBoard = async (req, res) => {
   const { clientId, zoneId, fromDate, toDate } = req.body;
 
@@ -55,16 +60,16 @@ exports.getDMAOutFlowInGateWayDashBoard = async (req, res) => {
         count += totalOutFlow;
       }
     });
-
-    const roundedCount = Math.round(count / 500) * 500;
-    const diff = Math.round(roundedCount/5);
+    count = roundToPlaces(count/1000, 2);
+    const roundedCount = Math.round(count / 1000) * 1000;
+    // const diff = Math.round(roundedCount/5);
 
     const totalDmaOutFlow = result.map(dma => ({
       dmaId: dma.DMAID,
       displayName: 'DMA '+dma.DMAID,
       name: dma.DMA,
-      totalFlow: Math.round(dma.TotalInFlow),
-      totalOutFlow: Math.round(dma.TotalOutFlow)
+      totalFlow: roundToPlaces(dma.TotalInFlow / 1000, 2),
+      totalOutFlow: roundToPlaces(dma.TotalOutFlow / 1000, 2)
     }));
 
     res.status(200).json({
