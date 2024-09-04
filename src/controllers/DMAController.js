@@ -61,7 +61,7 @@ exports.getDMAOutFlowInGateWayDashBoard = async (req, res) => {
       }
     });
     count = roundToPlaces(count/1000, 2);
-    const roundedCount = Math.round(count / 1000) * 1000;
+    const roundedCount = Math.round(count / 500) * 500;
     // const diff = Math.round(roundedCount/5);
 
     const totalDmaOutFlow = result.map(dma => ({
