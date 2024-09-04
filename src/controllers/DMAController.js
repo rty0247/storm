@@ -111,7 +111,7 @@ exports.getDMAWiseConsumptionInClientDashboard = async (req, res) => {
 
       const dmaWiseConsumption = dmaCount.map(dma => ({
         dmaId: dma.DMAID,
-        consumption:Math.round(dma.TotalConsumption)
+        consumption:roundToPlaces(Math.round(dma.TotalConsumption)/1000, 2)
       }));
 
       const dmaDetails = dmaList.map(dma => ({
@@ -123,7 +123,7 @@ exports.getDMAWiseConsumptionInClientDashboard = async (req, res) => {
       }));
 
     res.status(200).json({
-      totalConsumption : totalConsumption,
+      totalConsumption : roundToPlaces(totalConsumption/1000, 2),
       dmaWiseConsumption : dmaWiseConsumption,
       dmaDetails: dmaDetails
     });
