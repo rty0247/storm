@@ -54,14 +54,14 @@ exports.getDMAOutFlowInGateWayDashBoard = async (req, res) => {
       const totalOutFlow = parseFloat(dmaCount.TotalOutFlow) || 0;
 
       if (totalInFlow > 0) {
-        count += totalInFlow;
+        count += roundToPlaces(totalInFlow/1000, 2);
       }
       if (totalOutFlow > 0) {
-        count += totalOutFlow;
+        count += roundToPlaces(totalOutFlow/1000, 2);
       }
     });
-    count = roundToPlaces(count/1000, 2);
-    const roundedCount = Math.round(count / 500) * 500;
+    // count = roundToPlaces(count/1000, 2);
+    const roundedCount = Math.round(count / 1000) * 1000;
     // const diff = Math.round(roundedCount/5);
 
     const totalDmaOutFlow = result.map(dma => ({
