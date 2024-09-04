@@ -161,7 +161,6 @@ function roundToPlaces(num, decimalPlaces) {
   return Math.round(num * factor) / factor;
 }
 
-
 // exports.getTotalConsumptionInClientDashboard = async (req, res) => {
 //   const { clientId, zoneId, fromDate, toDate } = req.body;
 
@@ -174,19 +173,30 @@ function roundToPlaces(num, decimalPlaces) {
 
 //     const dates = getDatesBetween(fromDate, toDate);
 //     let totalInFlow = 0;
-//     let totalOutFlow = 0; 
+//     let totalOutFlow = 0;
+//     let maxValue = 0; // Initialize the maximum value
 //     const readingsMap = new Map();
 
 //     // Sum readings and store them in a map
 //     result.forEach(reading => {
-//       totalInFlow += parseFloat(reading.TotalInFlow) || 0;
-//       totalOutFlow += parseFloat(reading.TotalOutFlow) || 0;
+//       const inflow = parseFloat(reading.TotalInFlow) || 0;
+//       const outflow = parseFloat(reading.TotalOutFlow) || 0;
+
+//       totalInFlow += inflow;
+//       totalOutFlow += outflow;
+
+//       // Check if the current reading has a higher value than the current maxValue
+//       maxValue = Math.max(maxValue, inflow, outflow);
 
 //       readingsMap.set(reading.ReadingDate, {
-//         inflow: parseFloat(reading.TotalInFlow) || 0,
-//         outflow: parseFloat(reading.TotalOutFlow) || 0
+//         inflow,
+//         outflow
 //       });
 //     });
+
+//     // Math.ceil the maxValue to round it up to the nearest integer
+//     maxValue = Math.ceil(maxValue / 500) * 500;
+
 
 //     const inFlowDetails = {
 //       count: roundToPlaces(totalInFlow / 1000, 2),
@@ -213,8 +223,11 @@ function roundToPlaces(num, decimalPlaces) {
 //     });
 
 //     res.status(200).json({
+//       maxValue: maxValue !== 0 ? maxValue : 100,
+//       minValue: 0,
 //       inFlowDetails,
 //       consumptionDetails,
+//        // Returning the maxValue as the highest inflow/outflow value
 //       totalConsumption: dmaDetails
 //     });
 //   } catch (error) {
@@ -240,7 +253,6 @@ exports.getTotalConsumptionInClientDashboard = async (req, res) => {
     const dates = getDatesBetween(fromDate, toDate);
     let totalInFlow = 0;
     let totalOutFlow = 0;
-    let maxValue = 0; // Initialize the maximum value
     const readingsMap = new Map();
 
     // Sum readings and store them in a map
@@ -251,18 +263,29 @@ exports.getTotalConsumptionInClientDashboard = async (req, res) => {
       totalInFlow += inflow;
       totalOutFlow += outflow;
 
-      // Check if the current reading has a higher value than the current maxValue
-      maxValue = Math.max(maxValue, inflow, outflow);
-
-      readingsMap.set(reading.ReadingDate, {
-        inflow,
-        outflow
-      });
+      readingsMap.set(reading.ReadingDate, { inflow, outflow });
     });
 
-    // Math.ceil the maxValue to round it up to the nearest integer
-    maxValue = Math.ceil(maxValue / 500) * 500;
+    // Generate dmaDetails and calculate maxValue from inflow and outflow in the same step
+    let maxValue = 0;
 
+    const dmaDetails = dates.map(date => {
+      const reading = readingsMap.get(date) || { inflow: 0, outflow: 0 };
+      const inflow = roundToPlaces(reading.inflow / 1000, 2);
+      const outflow = roundToPlaces(reading.outflow / 1000, 2);
+
+      // Update maxValue with the largest of inflow or outflow
+      maxValue = Math.max(maxValue, inflow, outflow);
+
+      return {
+        date: convertYYYYMMDDtoMMDD(date),
+        inflow,
+        consumption: outflow
+      };
+    });
+
+    // Round up maxValue to the nearest 500
+    maxValue = Math.ceil(maxValue / 500) * 500;
 
     const inFlowDetails = {
       count: roundToPlaces(totalInFlow / 1000, 2),
@@ -278,22 +301,11 @@ exports.getTotalConsumptionInClientDashboard = async (req, res) => {
       action: "decreased"
     };
 
-    // Ensure each date in the range has a reading
-    const dmaDetails = dates.map(date => {
-      const reading = readingsMap.get(date) || { inflow: 0, outflow: 0 };
-      return {
-        date: convertYYYYMMDDtoMMDD(date),
-        inflow: roundToPlaces(reading.inflow / 1000, 2),
-        consumption: roundToPlaces(reading.outflow / 1000, 2)
-      };
-    });
-
     res.status(200).json({
       maxValue: maxValue !== 0 ? maxValue : 100,
       minValue: 0,
       inFlowDetails,
       consumptionDetails,
-       // Returning the maxValue as the highest inflow/outflow value
       totalConsumption: dmaDetails
     });
   } catch (error) {
@@ -305,6 +317,7 @@ exports.getTotalConsumptionInClientDashboard = async (req, res) => {
     });
   }
 };
+
 
 
 function convertYYYYMMDDtoMMDD(dateString) {
