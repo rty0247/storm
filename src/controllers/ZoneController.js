@@ -185,6 +185,11 @@ exports.getDayWiseZoneConsumptionInClientDashboard = async (req, res) => {
   }
 };
 
+function roundToPlaces(num, decimalPlaces) {
+  const factor = Math.pow(10, decimalPlaces);
+  return Math.round(num * factor) / factor;
+}
+
 exports.getTotalZoneWiseSegementation = async (req, res) => {
   const { clientId, zoneId } = req.body;
 
@@ -199,7 +204,8 @@ exports.getTotalZoneWiseSegementation = async (req, res) => {
       displayName : 'Zone '+zone.ZoneID,
 	    gatewayId : zone.GatewayID,
 	    lastCommunicationTime : zone.LastCommunicationTime,
-	    reading : parseFloat(zone.Reading.toFixed(3)),
+	    // reading : parseFloat(zone.Reading.toFixed(3)),
+      reading : roundToPlaces(zone.Reading, 2),
       dmas: zone.DMAs,
 	    meters : zone.Meters,
 	    status : zone.Status
