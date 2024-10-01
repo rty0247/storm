@@ -416,10 +416,10 @@ exports.getMeterSearch = async (req, res) => {
       replacements: { type, value },
       type: sequelize.QueryTypes.RAW
     });
-
+    
     const meterList = result.map(meter => ({
       canNo: meter.can || "000000",
-      meterId: meter.meterID,
+      meterId: meter.meterId,
       gatewayId: meter.gatewayID,
       deveui: meter.deveui,
       zoneNo: meter.zone,
