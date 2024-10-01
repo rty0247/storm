@@ -11,6 +11,10 @@ exports.getAllGatewaysWithClientId = async (req, res) => {
         const gatewayDetails = result.map(gateway => {          
             return {
               id: gateway.ID,
+              gatewayName: gateway.gwname,
+              latitude: gateway.latitude,
+              longitude: gateway.longitude,
+              altitude: gateway.altitude,
               gatewayId: gateway.gwid,
               time: gateway.time,
               ethState: getStateValue(gateway.ethState),
