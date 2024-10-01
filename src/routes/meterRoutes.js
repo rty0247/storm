@@ -6,5 +6,6 @@ const meterController = require('../controllers/MeterController');
 
 router.post('/getAllMetersWithClientIdZoneIdAndDmaId', meterController.getAllMetersWithClientIdZoneIdAndDmaId);
 router.post('/getMeterDetailsWithMeterId', meterController.getMeterDetailsWithMeterId);
+router.post('/getMeterSearch', meterController.getMeterSearch);
 
 module.exports = router;

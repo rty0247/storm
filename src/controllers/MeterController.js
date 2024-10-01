@@ -375,3 +375,71 @@ function getDatesBetween(startDate, endDate) {
 
   return dates;
 };
+
+async function getMeterSearch(type, value) {
+  try {
+    const result = await sequelize.query(
+      'CALL USP_GetMeterinfoByString(:type, :value)',
+      {
+        replacements: { type, value },
+        type: sequelize.QueryTypes.RAW
+      }
+    );
+ 
+    const meterList = result.map(meter => ({
+    can: meter.can,
+    meterId: meter.meterID,
+    gatewayId: meter.gatewayID,
+    deveui: meter.deveui,
+    zone: meter.zone,
+    dma: meter.dma,
+    timestamp: meter.timestamp,
+    reading: meter.reading,
+    consumption: meter.consumption,
+    status: meter.status,
+    battery: meter.battery
+  }));
+
+  return meterList;
+  } catch (error) {
+    console.error('Error fetching Gateway details:', error);
+    throw new Error('An error occurred while fetching Gateway details.');
+  }
+  
+};
+
+exports.getMeterSearch = async (req, res) => {
+  const { type, value } = req.body;
+
+  try {
+    const result = await sequelize.query('CALL USP_GetMeterinfoByString(:type, :value)', {
+      replacements: { type, value },
+      type: sequelize.QueryTypes.RAW
+    });
+
+    const meterList = result.map(meter => ({
+      can: meter.can || "000000",
+      meterId: meter.meterID || 0,
+      gatewayId: meter.gatewayID || 0,
+      deveui: meter.deveui || 0,
+      zone: meter.zone || 0,
+      dma: meter.dma || 0,
+      timestamp: meter.timestamp,
+      reading: meter.reading || 0,
+      consumption: meter.consumption || 0,
+      status: meter.status,
+      battery: meter.battery || 0
+    }));
+
+    res.status(200).json({
+      meterList: meterList
+    });
+  } catch (error) {
+    console.error('Error fetching client details:', error);
+    res.status(500).json({
+      success: false,
+      message: 'An error occurred while fetching client details.',
+      error: error.message
+    });
+  }
+};
