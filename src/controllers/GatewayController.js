@@ -1,13 +1,194 @@
+// const sequelize = require('../config/db');
+
+// exports.getAllGatewaysWithClientId = async (req, res) => {
+//     const { clientId, zoneId, dmaId } = req.body;
+
+//     try {
+//         const result = await sequelize.query('CALL USP_GetGatewayDetailsByClient(:clientId, :zoneId, :dmaId)', {
+//             replacements: { clientId, zoneId, dmaId },
+//             type: sequelize.QueryTypes.RAW
+//         });
+//         const gatewayDetails = result.map(gateway => {          
+//             return {
+//               id: gateway.ID,
+//               gatewayName: gateway.gwname,
+//               latitude: gateway.latitude,
+//               longitude: gateway.longitude,
+//               altitude: gateway.altitude,
+//               gatewayId: gateway.gwid,
+//               time: gateway.time,
+//               ethState: getStateValue(gateway.ethState),
+//               lteState: getStateValue(gateway.lteState),
+//               temperature: gateway.temperature,
+//               powerState: getStateValue(gateway.powerState),
+//               batteryState: getStateValue(gateway.batteryState),
+//               batteryLevel: gateway.batteryLevel,
+//               batteryVoltage: gateway.batteryVoltage,
+//               status: gateway.status
+//             };
+//           });
+//         res.status(200).json({
+//             gatewayDetails: gatewayDetails
+//         });
+//     } catch (error) {
+//         console.error('Error fetching client details:', error);
+//         res.status(500).json({
+//             success: false,
+//             message: 'An error occurred while fetching client details.',
+//             error: error.message
+//         });
+//     }
+// };
+
+// const getStateValue = (state) => {
+//     if (Buffer.isBuffer(state)) {
+//       return state.readUInt8(0);
+//     }
+//     return 0;
+// };
+
+// exports.getGatewayDetailsWithClientIdAndGatewayId = async (req, res) => {
+//     const { clientId, gatewayId } = req.body;
+
+//     try {
+//         const result = await sequelize.query(
+//             'CALL USP_GetGatewayDetailsByGatewayID(:clientId, :gatewayId)',
+//             {
+//                 replacements: { clientId, gatewayId },
+//                 type: sequelize.QueryTypes.RAW
+//             }
+//         );
+
+//         if (result && result[0]) {
+//             const data = result[0]; // Assuming the first element in the result array contains the data
+
+//             const basicDetails = {
+//                 id: data.GatewayID,
+//                 type: data.Type,
+//                 subnet: data.Subnet,
+//                 ceacon: data.Ceacon,
+//                 transmittingPower: data.TransmittingPower,
+//                 createdTime: data.CreatedTime,
+//                 name: data.GatewayName,
+//                 region: data.Region,
+//                 beacon: data.Beacon,
+//                 gdtp: data.GDTP,
+//                 http: data.HTTP,
+//                 remarks: data.Remarks
+//             };
+
+//             const lastFrameData = {
+//                 devAddress: data.DevAddress,
+//                 frequency: data.Frequency,
+//                 sNR: data.SNR,
+//                 BW: data.BW,
+//                 gpsTime: data.GPSTime,
+//                 type: data.FrameType,
+//                 rssi: data.RSSI,
+//                 sf: data.SF,
+//                 loraMod: data.LoraMod,
+//                 remarks: data.Remarks
+//             };
+
+//             res.status(200).json({
+//                 basicDetails: basicDetails,
+//                 lastFrameData: lastFrameData
+//             });
+//         } else {
+//             res.status(404).json({
+//                 success: false,
+//                 message: 'No gateway details found.'
+//             });
+//         }
+//     } catch (error) {
+//         console.error('Error fetching gateway details:', error);
+//         res.status(500).json({
+//             success: false,
+//             message: 'An error occurred while fetching gateway details.',
+//             error: error.message
+//         });
+//     }
+// };
+
+// exports.getGatewayCountsInGatewayDashboard = async (req, res) => {
+//     const { clientId } = req.body;
+//     const fromDate = req.query.fromDate || '2024-06-01';
+//     const toDate = req.query.toDate || '2024-06-30';
+
+//     if (!clientId) {
+//         return res.status(400).json({
+//             success: false,
+//             message: 'Client ID is required.'
+//         });
+//     }
+
+//     try {
+//         const result = await sequelize.query('call USP_GetGatewayCountByClient(:clientId, :fromDate, :toDate)', {
+//             replacements: { clientId, fromDate, toDate },
+//             type: sequelize.QueryTypes.RAW
+//         });
+
+//         const gatewayCount = {
+//             totalGateways: result[0].TotalGateways || 0,
+//             activeGateways: result[0].ActiveGateway || 0,
+//             inactiveGateways: result[0].InActiveGateway || 0,
+//             totalCansCommunicatedToday: result[0].CansCommunicated || 0
+//         };
+
+//         res.status(200).json({
+//             gatewayCount: gatewayCount
+//         });
+//     } catch (error) {
+//         console.error('Error fetching gateway counts:', error);
+//         res.status(500).json({
+//             success: false,
+//             message: 'An error occurred while fetching gateway counts.',
+//             error: error.message
+//         });
+//     }
+// };
+
+// exports.getAllGatewaysForDropdown = async (req, res) => {
+//     const { clientId, zoneId, dmaId } = req.body;
+
+//     try {
+//         const result = await sequelize.query('CALL USP_GetAllGatewaysWithClientIdZoneIdAndDMAId(:clientId, :zoneId, :dmaId)', {
+//             replacements: { clientId, zoneId, dmaId },
+//             type: sequelize.QueryTypes.RAW
+//         });
+//         const gatewayDetails = result.map(gateway => {          
+//             return {
+//               id: gateway.ID,
+//               displayName: gateway.gwid,
+//             };
+//           });
+//         res.status(200).json({
+//             gatewayDetails: gatewayDetails
+//         });
+//     } catch (error) {
+//         console.error('Error fetching gateway details:', error);
+//         res.status(500).json({
+//             success: false,
+//             message: 'An error occurred while fetching gateway details.',
+//             error: error.message
+//         });
+//     }
+// };
+
 const sequelize = require('../config/db');
 
+// Fetches all gateways based on client ID, zone ID, and DMA ID
 exports.getAllGatewaysWithClientId = async (req, res) => {
     const { clientId, zoneId, dmaId } = req.body;
 
     try {
+        // Calls the stored procedure to get gateway details
         const result = await sequelize.query('CALL USP_GetGatewayDetailsByClient(:clientId, :zoneId, :dmaId)', {
             replacements: { clientId, zoneId, dmaId },
             type: sequelize.QueryTypes.RAW
         });
+
+        // Maps the result to a structured format
         const gatewayDetails = result.map(gateway => {          
             return {
               id: gateway.ID,
@@ -27,11 +208,14 @@ exports.getAllGatewaysWithClientId = async (req, res) => {
               status: gateway.status
             };
           });
+
+        // Sends the response with gateway details
         res.status(200).json({
             gatewayDetails: gatewayDetails
         });
     } catch (error) {
         console.error('Error fetching client details:', error);
+        // Handles errors and sends appropriate response
         res.status(500).json({
             success: false,
             message: 'An error occurred while fetching client details.',
@@ -40,6 +224,7 @@ exports.getAllGatewaysWithClientId = async (req, res) => {
     }
 };
 
+// Helper function to convert state buffer to numerical value
 const getStateValue = (state) => {
     if (Buffer.isBuffer(state)) {
       return state.readUInt8(0);
@@ -47,10 +232,12 @@ const getStateValue = (state) => {
     return 0;
 };
 
+// Fetches details of a specific gateway by client ID and gateway ID
 exports.getGatewayDetailsWithClientIdAndGatewayId = async (req, res) => {
     const { clientId, gatewayId } = req.body;
 
     try {
+        // Calls the stored procedure to get gateway details by gateway ID
         const result = await sequelize.query(
             'CALL USP_GetGatewayDetailsByGatewayID(:clientId, :gatewayId)',
             {
@@ -59,9 +246,11 @@ exports.getGatewayDetailsWithClientIdAndGatewayId = async (req, res) => {
             }
         );
 
+        // Checks if data is returned
         if (result && result[0]) {
             const data = result[0]; // Assuming the first element in the result array contains the data
 
+            // Maps the data into structured formats
             const basicDetails = {
                 id: data.GatewayID,
                 type: data.Type,
@@ -90,11 +279,13 @@ exports.getGatewayDetailsWithClientIdAndGatewayId = async (req, res) => {
                 remarks: data.Remarks
             };
 
+            // Sends the response with the details
             res.status(200).json({
                 basicDetails: basicDetails,
                 lastFrameData: lastFrameData
             });
         } else {
+            // Sends a 404 response if no data is found
             res.status(404).json({
                 success: false,
                 message: 'No gateway details found.'
@@ -102,6 +293,7 @@ exports.getGatewayDetailsWithClientIdAndGatewayId = async (req, res) => {
         }
     } catch (error) {
         console.error('Error fetching gateway details:', error);
+        // Handles errors and sends appropriate response
         res.status(500).json({
             success: false,
             message: 'An error occurred while fetching gateway details.',
@@ -110,11 +302,13 @@ exports.getGatewayDetailsWithClientIdAndGatewayId = async (req, res) => {
     }
 };
 
+// Fetches gateway counts for a client in the gateway dashboard
 exports.getGatewayCountsInGatewayDashboard = async (req, res) => {
     const { clientId } = req.body;
     const fromDate = req.query.fromDate || '2024-06-01';
     const toDate = req.query.toDate || '2024-06-30';
 
+    // Validates input
     if (!clientId) {
         return res.status(400).json({
             success: false,
@@ -123,11 +317,13 @@ exports.getGatewayCountsInGatewayDashboard = async (req, res) => {
     }
 
     try {
+        // Calls the stored procedure to get gateway counts
         const result = await sequelize.query('call USP_GetGatewayCountByClient(:clientId, :fromDate, :toDate)', {
             replacements: { clientId, fromDate, toDate },
             type: sequelize.QueryTypes.RAW
         });
 
+        // Extracts the gateway count details
         const gatewayCount = {
             totalGateways: result[0].TotalGateways || 0,
             activeGateways: result[0].ActiveGateway || 0,
@@ -135,11 +331,13 @@ exports.getGatewayCountsInGatewayDashboard = async (req, res) => {
             totalCansCommunicatedToday: result[0].CansCommunicated || 0
         };
 
+        // Sends the response with gateway counts
         res.status(200).json({
             gatewayCount: gatewayCount
         });
     } catch (error) {
         console.error('Error fetching gateway counts:', error);
+        // Handles errors and sends appropriate response
         res.status(500).json({
             success: false,
             message: 'An error occurred while fetching gateway counts.',
@@ -148,25 +346,32 @@ exports.getGatewayCountsInGatewayDashboard = async (req, res) => {
     }
 };
 
+// Fetches all gateways for dropdown based on client ID, zone ID, and DMA ID
 exports.getAllGatewaysForDropdown = async (req, res) => {
     const { clientId, zoneId, dmaId } = req.body;
 
     try {
+        // Calls the stored procedure to get gateway details for dropdown
         const result = await sequelize.query('CALL USP_GetAllGatewaysWithClientIdZoneIdAndDMAId(:clientId, :zoneId, :dmaId)', {
             replacements: { clientId, zoneId, dmaId },
             type: sequelize.QueryTypes.RAW
         });
+
+        // Maps the results to a structured format
         const gatewayDetails = result.map(gateway => {          
             return {
               id: gateway.ID,
               displayName: gateway.gwid,
             };
           });
+
+        // Sends the response with gateway details for dropdown
         res.status(200).json({
             gatewayDetails: gatewayDetails
         });
     } catch (error) {
         console.error('Error fetching gateway details:', error);
+        // Handles errors and sends appropriate response
         res.status(500).json({
             success: false,
             message: 'An error occurred while fetching gateway details.',
