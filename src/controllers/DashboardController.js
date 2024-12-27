@@ -67,7 +67,7 @@ function getDatesBetween(startDate, endDate) {
 };
 
 exports.getAllDashboardValues = async (req, res) => {
-    const { clientId } = req.body;
+    const { clientId,fromDate,toDate } = req.body;
   
     try {
         const zoneResult = await sequelize.query('CALL USP_GetZoneCountKPI(:clientId)', {
@@ -80,8 +80,8 @@ exports.getAllDashboardValues = async (req, res) => {
             type: sequelize.QueryTypes.RAW
         });
 
-        const meterResult = await sequelize.query('CALL USP_GetMeterCountKPI(:clientId, 0, 0)', {
-          replacements: { clientId },
+        const meterResult = await sequelize.query('CALL USP_GetMeterCountKPI(:clientId, 0, 0,:fromDate,:toDate)', {
+          replacements: { clientId,fromDate,toDate },
           type: sequelize.QueryTypes.RAW
         });
 
