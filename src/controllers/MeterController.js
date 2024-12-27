@@ -335,6 +335,7 @@ exports.getMeterDetailsWithClientIdZoneIdDMAIdAndMeterId = async (req, res) => {
 
     const zoneDetails = result.map(zone => ({
         zoneId : zone.ZoneID,
+        displayName : 'Zone ' + zone.ZoneName,
 	    region : zone.Region,
 	    gatewayId : zone.GatewayID,
 	    lastCommunicationTime : zone.LastCommunicationTime,

@@ -11,7 +11,7 @@ exports.getAllZoneDetailsWithClientId = async (req, res) => {
 
     const zoneDetails = result.map(zone => ({
       zoneId : zone.ZoneID,
-      displayName : 'Zone ' + zone.ZoneID,
+      displayName : 'Zone ' + zone.ZoneName,
 	    region : zone.Region,
 	    gatewayId : zone.GatewayID,
 	    lastCommunicationTime : zone.LastCommunicationTime,
@@ -70,17 +70,20 @@ exports.getZoneWiseConsumptionInClientDashboard = async (req, res) => {
     let totalConsumption = 0;
 
     zoneCount.forEach(reading => {
+
         totalConsumption += Math.round(parseFloat(reading.TotalConsumption)) || 0;
         
       });
 
       const zoneWiseConsumption = zoneCount.map(zone => ({
         zoneId: zone.ZoneID,
+        zoneName: 'Zone ' + zone.ZoneName,
         consumption:Math.round(zone.TotalConsumption)
       }));
 
     const zoneDetails = zoneList.map(zone => ({
       zoneId: zone.ZoneID,
+      zoneName: 'Zone ' + zone.ZoneName,
       gatewayId: zone.GatewayID,
       reading: Math.round(zone.Reading),
       date: zone.ReadingTime,
@@ -138,7 +141,7 @@ function formatResult(result, dates) {
 
     formattedResult[date].zoneDetails.push({
       zoneId: reading.ZoneID,
-      zoneName: `Zone ${reading.ZoneID}`, // Assuming you want to use ZoneID for ZoneName
+      zoneName: `Zone ${reading.ZoneName}`, // Assuming you want to use ZoneID for ZoneName
       inflow: Math.round(parseFloat(reading.Inflow).toFixed(1)),
       consumption: Math.round(parseFloat(reading.Consumption).toFixed(1)),
       total: parseFloat(reading.Total).toFixed(1)
@@ -201,7 +204,7 @@ exports.getTotalZoneWiseSegementation = async (req, res) => {
 
     const zoneDetails = result.map(zone => ({
       zoneId : zone.ZoneID,
-      displayName : 'Zone '+zone.ZoneID,
+      displayName : 'Zone ' + zone.ZoneName,
 	    gatewayId : zone.GatewayID,
 	    lastCommunicationTime : zone.LastCommunicationTime,
 	    // reading : parseFloat(zone.Reading.toFixed(3)),
