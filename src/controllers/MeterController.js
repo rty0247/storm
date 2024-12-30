@@ -428,7 +428,8 @@ exports.getMeterSearch = async (req, res) => {
       timestamp: meter.timestamp,
       reading: meter.reading,
       consumed: meter.consumption,
-      batteryLife: meter.status,
+      status:meter.status,
+      batteryLife: meter.batteryLife,
       battery: meter.battery,
       remarks: meter.Remarks
     }));
