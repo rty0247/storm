@@ -148,11 +148,11 @@ exports.getGatewayCountsInGatewayDashboard = async (req, res) => {
     }
 };
 
-exports.getAllGatewaysForDropdown = async (req, res) => {
+exports.getAllGatewaysForDropdown = async (req, res) => {            
     const { clientId, zoneId, dmaId } = req.body;
 
     try {
-        const result = await sequelize.query('CALL USP_GetAllGatewaysWithClientIdZoneIdAndDMAId(:clientId, :zoneId, :dmaId)', {
+        const result = await sequelize.query('CALL USP_GetGatewayDetailsByClient(:clientId, :zoneId, :dmaId)', {
             replacements: { clientId, zoneId, dmaId },
             type: sequelize.QueryTypes.RAW
         });
