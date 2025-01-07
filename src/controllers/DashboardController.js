@@ -20,13 +20,16 @@ exports.getTotalOutflow = async (req, res) => {
       if (reading.Reading > maxReading) {
         maxReading = reading.Reading;
       }
-
       readingsMap.set(reading.ReadingDate, reading.Reading);
     });
 
-    // Correct rounding logic for maxRange
-    const magnitude = Math.pow(10, Math.floor(Math.log10(maxReading))); // Magnitude = 1000 for 1551
-    const maxRange = Math.ceil(maxReading / magnitude) * magnitude; // Correctly rounds to 2000
+    console.log("Max Reading:", maxReading); // Debug log
+
+    // Correct rounding logic
+    const magnitude = Math.pow(10, Math.floor(Math.log10(maxReading)));
+    const maxRange = Math.ceil(maxReading / magnitude) * magnitude; // Nearest power-of-ten multiple
+    console.log("Max Range Calculated:", maxRange); // Debug log
+
     const difference = Math.round(maxRange / 5);
 
     // Ensure each date in the range has a reading
@@ -53,6 +56,7 @@ exports.getTotalOutflow = async (req, res) => {
     });
   }
 };
+
 
 
 
