@@ -24,9 +24,9 @@ exports.getTotalOutflow = async (req, res) => {
       readingsMap.set(reading.ReadingDate, reading.Reading);
     });
 
-    // Calculate maxRange as the next higher power-of-ten multiple
-    const magnitude = Math.pow(10, Math.floor(Math.log10(maxReading))); // Get the magnitude
-    const maxRange = Math.ceil(maxReading / magnitude) * magnitude; // Round up to nearest higher multiple of the magnitude
+    // Correct rounding logic for maxRange
+    const magnitude = Math.pow(10, Math.floor(Math.log10(maxReading))); // Magnitude = 1000 for 1551
+    const maxRange = Math.ceil(maxReading / magnitude) * magnitude; // Correctly rounds to 2000
     const difference = Math.round(maxRange / 5);
 
     // Ensure each date in the range has a reading
@@ -53,6 +53,7 @@ exports.getTotalOutflow = async (req, res) => {
     });
   }
 };
+
 
 
 
