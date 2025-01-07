@@ -204,14 +204,12 @@ exports.getTotalConsumptionInClientDashboard = async (req, res) => {
       totalOutFlow += outflow;
 
       readingsMap.set(reading.ReadingDate, { inflow, outflow });
-      
     });
 
     // Generate dmaDetails and calculate maxValue from inflow and outflow in the same step
     let maxValue = 0;
 
     const dmaDetails = dates.map(date => {
-      
       const reading = readingsMap.get(date) || { inflow: 0, outflow: 0 };
       const inflow = roundToPlaces(reading.inflow / 1000, 2);
       const outflow = roundToPlaces(reading.outflow / 1000, 2);
@@ -226,9 +224,11 @@ exports.getTotalConsumptionInClientDashboard = async (req, res) => {
       };
     });
 
-    // Round up maxValue to the nearest 1000
-    maxValue = Math.ceil(maxValue / 1000) * 1000;
+    // Adjust maxValue dynamically to the nearest power-of-ten multiple
+    const magnitude = Math.pow(10, Math.floor(Math.log10(maxValue)));
+    maxValue = Math.ceil(maxValue / magnitude) * magnitude;
 
+    // Create details for In Flow and Consumption
     const inFlowDetails = {
       count: roundToPlaces(totalInFlow / 1000, 2),
       label: "In Flow",
@@ -259,6 +259,7 @@ exports.getTotalConsumptionInClientDashboard = async (req, res) => {
     });
   }
 };
+
 
 
 
