@@ -24,9 +24,10 @@ exports.getTotalOutflow = async (req, res) => {
       readingsMap.set(reading.ReadingDate, reading.Reading);
     });
 
-    // Round the max reading to the nearest multiple of 500
-    const roundedMaxReading = Math.round(maxReading / 1000) * 1000;
-    const difference = Math.round(roundedMaxReading / 5);
+    // Determine the nearest higher "power-of-ten multiple" for maxRange
+    const magnitude = Math.pow(10, Math.floor(Math.log10(maxReading)));
+    const maxRange = Math.ceil(maxReading / magnitude) * magnitude;
+    const difference = Math.round(maxRange / 5);
 
     // Ensure each date in the range has a reading
     const readings = dates.map(date => {
@@ -39,7 +40,7 @@ exports.getTotalOutflow = async (req, res) => {
 
     res.status(200).json({
       minRange: 0,
-      maxRange: roundedMaxReading,
+      maxRange: maxRange,
       difference: difference,
       totalOutFlow: readings
     });
@@ -52,6 +53,8 @@ exports.getTotalOutflow = async (req, res) => {
     });
   }
 };
+
+
 
 
 function getDatesBetween(startDate, endDate) {
