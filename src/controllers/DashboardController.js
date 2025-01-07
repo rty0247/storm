@@ -12,34 +12,37 @@ exports.getTotalOutflow = async (req, res) => {
     });
 
     const dates = getDatesBetween(fromDate, toDate);
-    let maxReading = 0;
-    const readingsMap = new Map();
 
-    // Find the maximum reading and store them in a map
+    // Group readings by date
+    const readingsByDate = new Map();
+
     result.forEach(reading => {
-      if (reading.Reading > maxReading) {
-        maxReading = reading.Reading;
+      const { ReadingDate, Reading } = reading;
+
+      if (!readingsByDate.has(ReadingDate)) {
+        readingsByDate.set(ReadingDate, 0); // Initialize with 0
       }
-      readingsMap.set(reading.ReadingDate, reading.Reading);
+
+      readingsByDate.set(ReadingDate, readingsByDate.get(ReadingDate) + Reading); // Add reading
     });
 
-    console.log("Max Reading:", maxReading); // Debug log
-
-    // Correct rounding logic
-    const magnitude = Math.pow(10, Math.floor(Math.log10(maxReading)));
-    const maxRange = Math.ceil(maxReading / magnitude) * magnitude; // Nearest power-of-ten multiple
-    console.log("Max Range Calculated:", maxRange); // Debug log
-
-    const difference = Math.round(maxRange / 5);
-
-    // Ensure each date in the range has a reading
+    // Combine data for each date and calculate totalOutFlow
     const readings = dates.map(date => {
-      const reading = readingsMap.get(date) || 0;
+      const totalReading = readingsByDate.get(date) || 0;
+
       return {
         date: convertYYYYMMDDtoMMDD(date),
-        count: Math.round(reading)
+        count: Math.round(totalReading) // Sum of all zone readings for the date
       };
     });
+
+    // Find the maximum count in totalOutFlow
+    const maxCount = Math.max(...readings.map(r => r.count));
+
+    // Adjust maxRange and difference based on maxCount
+    const magnitude = Math.pow(10, Math.floor(Math.log10(maxCount)));
+    const maxRange = Math.ceil(maxCount / magnitude) * magnitude; // Round to nearest power-of-ten multiple
+    const difference = Math.round(maxRange / 5);
 
     res.status(200).json({
       minRange: 0,
@@ -56,6 +59,10 @@ exports.getTotalOutflow = async (req, res) => {
     });
   }
 };
+
+
+
+
 
 
 
